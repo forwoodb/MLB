@@ -17,117 +17,145 @@ df_name_spelling = pd.DataFrame(csv_name_spelling)
 df_team_abbr = pd.DataFrame(csv_team_abbr)
 
 df_lineups = df_lineups.rename(columns={' player name': 'Name'})
+df_lineups = df_lineups.rename(columns={' batting order': ' b/o'})
+df_lineups = df_lineups.rename(columns={'team code': 'team'})
 df_lineups = df_lineups.replace(list(df_name_spelling["BaseballMonster"]), list(df_name_spelling["DraftKings"]))
 df_lineups = df_lineups.replace(list(df_team_abbr["BaseballMonster"]), list(df_team_abbr["DraftKings"]))
 
-availables = pd.merge(df_lineups, df_dk, on='Name', how='inner')
+
+# # Batting Stats
+df_b_stats.drop(df_b_stats.tail(1).index,inplace=True)
+name = df_b_stats['Name'].str.split('*', n=1, expand=True)
+name = name[0].str.split('\\', n=1, expand=True)
+df_b_stats['Name'] = name[0]
+
+df_dk = df_dk[['Name','Game Info','TeamAbbrev','AvgPointsPerGame']]
+df_dk = df_dk.rename(columns={'TeamAbbrev': 'TmAbb','AvgPointsPerGame': 'APPG'})
+df_lineups = df_lineups[['team','Name',' b/o']]
+df_b_stats = df_b_stats[['Name','G','H','2B','3B','HR','BB','R','RBI','HBP','SB']]
+#
+df_dk = pd.merge(df_lineups, df_dk, on='Name', how='inner')
+df_dk = pd.merge(df_dk, df_b_stats, on='Name', how='inner')
+
 
 # Batting Stats
-singles = ((df_b_stats['H']-df_b_stats['2B']-df_b_stats['3B']-df_b_stats['HR']) * 3)/df_b_stats['G']
-doubles = (df_b_stats['2B'] * 5)/df_b_stats['G']
-triples = (df_b_stats['3B'] * 8)/df_b_stats['G']
-home_runs = (df_b_stats['HR'] * 10)/df_b_stats['G']
-RBIs = (df_b_stats['RBI'] * 2)/df_b_stats['G']
-runs = (df_b_stats['R'] * 2)/df_b_stats['G']
-walks = (df_b_stats['BB'] * 2)/df_b_stats['G']
-HBP = (df_b_stats['HBP'] * 2)/df_b_stats['G']
-stolen_bases = (df_b_stats['SB'] * 5)/df_b_stats['G']
+singles = ((df_dk['H']-df_dk['2B']-df_dk['3B']-df_dk['HR']) * 3)/df_dk['G']
+doubles = (df_dk['2B'] * 5)/df_dk['G']
+triples = (df_dk['3B'] * 8)/df_dk['G']
+home_runs = (df_dk['HR'] * 10)/df_dk['G']
+RBIs = (df_dk['RBI'] * 2)/df_dk['G']
+runs = (df_dk['R'] * 2)/df_dk['G']
+walks = (df_dk['BB'] * 2)/df_dk['G']
+HBP = (df_dk['HBP'] * 2)/df_dk['G']
+stolen_bases = (df_dk['SB'] * 5)/df_dk['G']
+
+df_dk['H'] = round(singles, 2)
+df_dk['2B'] = round(doubles, 2)
+df_dk['3B'] = round(triples, 2)
+df_dk['HR'] = round(home_runs, 2)
+df_dk['RBI'] = round(RBIs, 2)
+df_dk['R'] = round(runs, 2)
+df_dk['BB'] = round(walks, 2)
+df_dk['HBP'] = round(HBP, 2)
+df_dk['SB'] = round(stolen_bases, 2)
 
 proj_pts = (singles + doubles + triples + home_runs + RBIs + runs + walks + HBP + stolen_bases)
-df_b_stats['proj_pts'] = round(proj_pts, 2)
-df_b_stats.sort_values(by=['proj_pts'], inplace=True, ascending=False)
+df_dk['pj_pts'] = round(proj_pts, 2)
+# dk_batting_stats.sort_values(by=['proj_pts'], inplace=True, ascending=False)
+
+
+
 
 # # Starting Pitcher Factors for Batting
 df_p_stats.drop(df_p_stats.tail(1).index,inplace=True)
 name = df_p_stats['Name'].str.split('*', n=1, expand=True)
 name = name[0].str.split('\\', n=1, expand=True)
 df_p_stats['Name'] = name[0]
+#
+df_p_stats = df_p_stats[['Name','IP','H','HR','R','BB']]
+#
+lg_innings_pitched = df_p_stats['IP'].sum()
+# lg_hits_allowed = df_p_stats['H'].sum()
 
-factors = df_p_stats[['Name','IP','H','HR','R','BB']]
-
-lg_innings_pitched = factors['IP'].sum()
-# lg_hits_allowed = factors['H'].sum()
-
-lg_hits_allowed = factors['H'].sum() - factors['HR'].sum()
+lg_hits_allowed = df_p_stats['H'].sum() - df_p_stats['HR'].sum()
 lg_hits_ip = lg_hits_allowed/lg_innings_pitched
-hits_ip = (factors['H'] - factors['HR'])/factors['IP']
-hits_factor = hits_ip/lg_hits_ip
-factors.insert(3, 'h_factor', round(hits_factor, 2))
+hits_ip = (df_p_stats['H'] - df_p_stats['HR'])/df_p_stats['IP']
+hits_fac = hits_ip/lg_hits_ip
+df_p_stats.insert(3, 'h_fac', round(hits_fac, 2))
 
-lg_hr_allowed = factors['HR'].sum()
+lg_hr_allowed = df_p_stats['HR'].sum()
 lg_hr_ip = lg_hr_allowed/lg_innings_pitched
-hr_ip = factors['HR']/factors['IP']
-hr_factor = hr_ip/lg_hr_ip
-factors.insert(5, 'hr_factor', round(hr_factor, 2))
+hr_ip = df_p_stats['HR']/df_p_stats['IP']
+hr_fac = hr_ip/lg_hr_ip
+df_p_stats.insert(5, 'hr_fac', round(hr_fac, 2))
 
-lg_r_allowed = factors['R'].sum()
+lg_r_allowed = df_p_stats['R'].sum()
 lg_r_ip = lg_r_allowed/lg_innings_pitched
-r_ip = factors['R']/factors['IP']
-r_factor = r_ip/lg_r_ip
-factors.insert(7, 'r_factor', round(r_factor, 2))
+r_ip = df_p_stats['R']/df_p_stats['IP']
+r_fac = r_ip/lg_r_ip
+df_p_stats.insert(7, 'r_fac', round(r_fac, 2))
 
-lg_bb_allowed = factors['BB'].sum()
+lg_bb_allowed = df_p_stats['BB'].sum()
 lg_bb_ip = lg_bb_allowed/lg_innings_pitched
-bb_ip = factors['BB']/factors['IP']
-bb_factor = bb_ip/lg_bb_ip
-factors.insert(9, 'bb_factor', round(bb_factor, 2))
-print(factors)
-# print(lg_hits_allowed)
+bb_ip = df_p_stats['BB']/df_p_stats['IP']
+bb_fac = bb_ip/lg_bb_ip
+df_p_stats.insert(9, 'bb_fac', round(bb_fac, 2))
+
+#Starting Pitcher Stats
+
+game_info = df_dk['Game Info'].str.split('@', n=1, expand=True)
+df_dk['team_1'] = game_info[0]
+df_dk['team_2'] = game_info[1]
+
+team_2 = df_dk['team_2'].str.split(' ', n=1, expand=True)
+df_dk['team_2'] = team_2[0]
+df_dk.drop(columns=['Game Info'], inplace=True)
+
+df_dk['Opp'] = None
+
+for i in df_dk.index:
+    if df_dk['TmAbb'][i] == df_dk['team_1'][i]:
+        df_dk['Opp'][i] = df_dk['team_2'][i]
+    else:
+        df_dk['Opp'][i] = df_dk['team_1'][i]
 #
-# #Starting Pitcher Stats
+starting_pitchers = {}
+for pos in df_dk[' b/o'].unique():
+    if pos == 'SP':
+        availables_sp = df_dk[df_dk[' b/o'] == pos]
+        starting_pitchers = list(availables_sp[['TmAbb', 'Name']].set_index('TmAbb').to_dict().values())[0]
 #
-# game_info = availables['Game Info'].str.split('@', n=1, expand=True)
-# availables['team_1'] = game_info[0]
-# availables['team_2'] = game_info[1]
+# # print(starting_pitchers)
+df_dk['vSP'] = None
 #
-# team_2 = availables['team_2'].str.split(' ', n=1, expand=True)
-# availables['team_2'] = team_2[0]
-# availables['date/time'] = team_2[1]
+for i in df_dk.index:
+    for j in starting_pitchers:
+        if df_dk['Opp'][i] == j:
+            df_dk['vSP'][i] = starting_pitchers[j]
 #
-# availables['Opp'] = None
+df_p_stats = df_p_stats.rename(columns={'Name': 'vSP'})
+df_dk.drop(columns=['team_1','team_2'], inplace=True)
+
+# df_dk = pd.merge(df_dk, df_b_stats, on='Name', how='inner')
+# df_p_stats = df_p_stats[['vSP','H','h_fac','HR','hr_fac','R','r_fac','BB','bb_fac']]
+df_p_stats = df_p_stats[['vSP','h_fac','hr_fac','r_fac','bb_fac']]
+df_dk = pd.merge(df_dk, df_p_stats, on='vSP', how='inner')
+
+# Adjusted Batting Projections
+proj_hits = (df_dk['H'] + df_dk['2B'] + df_dk['3B']) * df_dk['h_fac']
+proj_hr = df_dk['HR'] * df_dk['hr_fac']
+proj_r = (df_dk['R'] + df_dk['RBI']) * df_dk['r_fac']
+proj_bb = df_dk['BB'] * df_dk['bb_fac']
+
+# proj_pts_vP = HBP
+proj_pts_vP = proj_hits + proj_hr + proj_r + proj_bb + df_dk['HBP'] + df_dk['SB']
+
+df_dk['pj_vP'] = round(proj_pts_vP, 2)
+# df_dk.sort_values(by=['proj_pts_vP'], inplace=True, ascending=False)
+# display entire dataframe in console
+# projections = df_dk[['Name','TeamAbbrev','Opp','vSP','AvgPointsPerGame','proj_pts_vP']]
 #
-# for i in availables.index:
-#     if availables['TeamAbbrev'][i] == availables['team_1'][i]:
-#         availables['Opp'][i] = availables['team_2'][i]
-#     else:
-#         availables['Opp'][i] = availables['team_1'][i]
-#
-# starting_pitchers = {}
-# for pos in availables[' batting order'].unique():
-#     if pos == 'SP':
-#         availables_sp = availables[availables[' batting order'] == pos]
-#         starting_pitchers = list(availables_sp[['TeamAbbrev', 'Name']].set_index('TeamAbbrev').to_dict().values())[0]
-#
-# print(starting_pitchers)
-# availables['vSP'] = None
-#
-# for i in availables.index:
-#     # availables['vSP'] =
-#     for j in starting_pitchers:
-#         if availables['Opp'][i] == j:
-#             availables['vSP'][i] = starting_pitchers[j]
-#
-#
-# # for i in availables.index:
-# #     availables['vSP'][i] = availables['Opp'][i]
-# #
-# # for i in availables.index:
-# #     if availables['Opp'][i] == 'DET':
-# #         availables['vSP'][i] ==
-# # for team in availables['team_1']:
-# #     for i in availables.index:
-# #         if team == availables['team code'][i]:
-# #             availables['team code'][i]
-#             # vSP = availables['team code'][i]
-#     # availables['vSP'][i] = availables['team code']
-#     # if availables['team code'][j] == availables['Opp'][i]:
-#     #     availables['vSP'][i] == availables['team code'][j]
-#     # availables['Opp'][i]].isin(availables['team code'])
-#     # if df_lineups['team code'][i] == availables['Opp'][i]:
-#     #     availables['vSP'][i] = df_lineups['team code'][i]
-#
-#
-# # display entire dataframe in console
-# pd.set_option('display.max_rows', None)
-# # pd.set_option('display.max_columns', None)
-# print(availables)
+# projection_stats = df_b_stats[['Name','']]
+pd.set_option('display.max_rows', None)
+# pd.set_option('display.max_columns', None)
+print(df_dk)
