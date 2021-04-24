@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-
+import re
 
 csv_dk = pd.read_csv('./Data/DKSalaries.csv')
 csv_b_stats = pd.read_csv('./Data/br_b_stats.csv')
@@ -39,16 +39,40 @@ df_b_stats.sort_values(by=['proj_pts'], inplace=True, ascending=False)
 
 # # Starting Pitcher Factors for Batting
 df_p_stats.drop(df_p_stats.tail(1).index,inplace=True)
-name = df_p_stats['Name'].str.split('\\', n=1, expand=True)
-# name = df_p_stats['Name'].replace('*', '_')
+name = df_p_stats['Name'].str.split('*', n=1, expand=True)
+name = name[0].str.split('\\', n=1, expand=True)
 df_p_stats['Name'] = name[0]
-factors = df_p_stats[['Name','IP','H']]
+
+factors = df_p_stats[['Name','IP','H','HR','R','BB']]
+
 lg_innings_pitched = factors['IP'].sum()
-lg_hits_allowed = factors['H'].sum()
-hits_ip = factors['H']/factors['IP']
-factors.insert(3, 'h_factor', round(hits_ip, 2))
+# lg_hits_allowed = factors['H'].sum()
+
+lg_hits_allowed = factors['H'].sum() - factors['HR'].sum()
+lg_hits_ip = lg_hits_allowed/lg_innings_pitched
+hits_ip = (factors['H'] - factors['HR'])/factors['IP']
+hits_factor = hits_ip/lg_hits_ip
+factors.insert(3, 'h_factor', round(hits_factor, 2))
+
+lg_hr_allowed = factors['HR'].sum()
+lg_hr_ip = lg_hr_allowed/lg_innings_pitched
+hr_ip = factors['HR']/factors['IP']
+hr_factor = hr_ip/lg_hr_ip
+factors.insert(5, 'hr_factor', round(hr_factor, 2))
+
+lg_r_allowed = factors['R'].sum()
+lg_r_ip = lg_r_allowed/lg_innings_pitched
+r_ip = factors['R']/factors['IP']
+r_factor = r_ip/lg_r_ip
+factors.insert(7, 'r_factor', round(r_factor, 2))
+
+lg_bb_allowed = factors['BB'].sum()
+lg_bb_ip = lg_bb_allowed/lg_innings_pitched
+bb_ip = factors['BB']/factors['IP']
+bb_factor = bb_ip/lg_bb_ip
+factors.insert(9, 'bb_factor', round(bb_factor, 2))
 print(factors)
-# print(hits_allowed)
+# print(lg_hits_allowed)
 #
 # #Starting Pitcher Stats
 #
