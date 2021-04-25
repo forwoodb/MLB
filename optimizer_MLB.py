@@ -41,8 +41,8 @@ outfield = availables[(availables['position_1'] == 'OF') | (availables['position
 positions = 10
 available_players = list(availables['Name'])
 # num_available = list(availables[' game_number'])
-# points = list(availables['AvgPointsPerGame'])
-points = list(availables['pj_vP'])
+points = list(availables['AvgPointsPerGame'])
+# points = list(availables['pj_vP'])
 salaries = list(availables['Salary'])
 position_1 = list(availables['position_1'])
 position_2 = list(availables['position_2'])

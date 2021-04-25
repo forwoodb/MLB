@@ -2,21 +2,25 @@ import pandas as pd
 import numpy as np
 import re
 
+# Import data.
 csv_dk = pd.read_csv('./Data/DKSalaries.csv')
 csv_b_stats = pd.read_csv('./Data/br_b_stats.csv')
 csv_p_stats = pd.read_csv('./Data/br_p_stats.csv')
+# csv_t_stats = pd.read_csv('./Data/br_p_stats.csv')
 csv_starting_lineups = pd.read_csv('./Data/Lineups_2021_04_24.csv')
 csv_name_spelling = pd.read_csv('./Data/name_spelling.csv')
 csv_team_abbr = pd.read_csv('./Data/team_abb.csv')
 
+# Convert to dataframes.
 df_b_stats = pd.DataFrame(csv_b_stats)
 df_p_stats = pd.DataFrame(csv_p_stats)
+# df_t_stats = pd.DataFrame(csv_t_stats)
 df_dk = pd.DataFrame(csv_dk)
 df_lineups = pd.DataFrame(csv_starting_lineups)
 df_name_spelling = pd.DataFrame(csv_name_spelling)
 df_team_abbr = pd.DataFrame(csv_team_abbr)
 
-
+# Clean up lineup data.
 df_lineups = df_lineups.rename(columns={' player name': 'Name'})
 df_lineups = df_lineups.rename(columns={' batting order': ' b/o'})
 df_lineups = df_lineups.rename(columns={'team code': 'team'})
@@ -41,7 +45,7 @@ df_b_stats = df_b_stats.replace(list(df_name_spelling["BaseballReference"]), lis
 df_dk = pd.merge(df_lineups, df_dk, on='Name', how='inner')
 df_dk = pd.merge(df_dk, df_b_stats, on='Name', how='inner')
 
-# Batting Stats
+# DraftKings Batting Stats
 singles = ((df_dk['H']-df_dk['2B']-df_dk['3B']-df_dk['HR']) * 3)/df_dk['G']
 doubles = (df_dk['2B'] * 5)/df_dk['G']
 triples = (df_dk['3B'] * 8)/df_dk['G']

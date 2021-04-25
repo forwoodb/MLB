@@ -1,0 +1,15 @@
+,team,Name, b/o,TmAbb,APPG,G,IP,SO,W,ER,H,BB,HBP,CG,SHO,pj_pts,Opp,vT
+0,OAK,Chris Bassitt,SP,OAK,12.76,4,12.43,9.5,1.0,-5.5,-3.0,-1.5,-0.3,0.0,0.0,12.63,BAL,Wade LeBlanc
+1,BAL,Wade LeBlanc,SP,BAL,1.93,5,2.25,1.6,0.0,-1.2,-0.6,-0.0,-0.12,0.0,0.0,1.93,OAK,Chris Bassitt
+2,TEX,Kyle Gibson,SP,TEX,16.25,4,11.87,9.0,2.0,-3.0,-2.7,-0.9,-0.15,0.0,0.0,16.12,CWS,Dallas Keuchel
+3,CWS,Yermin Mercedes,7,CWS,10.18,1,2.25,0.0,0.0,-2.0,-1.8,-1.2,-0.0,0.0,0.0,-2.75,TEX,Kyle Gibson
+4,CWS,Dallas Keuchel,SP,CWS,6.64,4,10.69,5.0,1.0,-6.0,-2.85,-1.05,-0.15,0.0,0.0,6.64,TEX,Kyle Gibson
+5,PHI,Aaron Nola,SP,PHI,23.22,4,13.61,14.0,1.0,-3.0,-3.15,-0.45,-0.3,0.62,0.62,22.96,COL,Antonio Senzatela
+6,COL,Antonio Senzatela,SP,COL,7.4,4,11.25,5.5,1.0,-6.0,-3.45,-0.75,-0.15,0.0,0.0,7.4,PHI,Aaron Nola
+7,MIA,Pablo Lopez,SP,MIA,13.31,4,11.92,12.5,0.0,-4.0,-3.0,-1.05,-0.0,0.0,0.0,16.37,SF,Kevin Gausman
+8,SF,Kevin Gausman,SP,SF,19.54,4,14.18,11.5,1.0,-3.5,-2.55,-1.35,-0.0,0.0,0.0,19.27,MIA,Pablo Lopez
+9,SD,Jake Cronenworth,6,SD,6.5,1,0.45,2.0,0.0,0.0,-0.6,-0.0,-0.0,0.0,0.0,1.85,LAD,Trevor Bauer
+10,SD,Blake Snell,SP,SD,13.82,4,8.49,12.0,0.0,-3.5,-1.65,-1.5,-0.15,0.0,0.0,13.69,LAD,Trevor Bauer
+11,LAD,Will Smith,4,LAD,7.21,10,2.02,2.8,0.0,-0.8,-0.3,-0.36,-0.06,0.0,0.0,3.3,SD,Blake Snell
+12,LAD,Will Smith,4,ATL,3.3,10,2.02,2.8,0.0,-0.8,-0.3,-0.36,-0.06,0.0,0.0,3.3,ARI,
+13,LAD,Trevor Bauer,SP,LAD,28.42,4,14.62,18.0,2.0,-3.5,-1.5,-0.9,-0.3,0.0,0.0,28.42,SD,Blake Snell
