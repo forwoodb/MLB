@@ -22,13 +22,13 @@ df_team_abbr = pd.DataFrame(csv_team_abbr)
 
 # Clean up lineup data.
 df_lineups = df_lineups.rename(columns={' player name': 'Name'})
-df_lineups = df_lineups.rename(columns={' batting order': ' b/o'})
+df_lineups = df_lineups.rename(columns={' batting order': 'b_o'})
 df_lineups = df_lineups.rename(columns={'team code': 'team'})
 df_lineups = df_lineups.replace(list(df_name_spelling["BaseballMonster"]), list(df_name_spelling["DraftKings"]))
 df_lineups = df_lineups.replace(list(df_team_abbr["BaseballMonster"]), list(df_team_abbr["DraftKings"]))
 
 
-# # Batting Stats
+# # Pitching Stats
 df_p_stats.drop(df_p_stats.tail(1).index,inplace=True)
 name = df_p_stats['Name'].str.split('\*|\#', n=1, expand=True)
 name = name[0].str.split('\\', n=1, expand=True)
@@ -36,11 +36,11 @@ df_p_stats['Name'] = name[0]
 
 df_dk = df_dk[['Name','Game Info','TeamAbbrev','AvgPointsPerGame']]
 df_dk = df_dk.rename(columns={'TeamAbbrev': 'TmAbb','AvgPointsPerGame': 'APPG'})
-df_lineups = df_lineups[['team','Name',' b/o']]
+df_lineups = df_lineups[['team','Name','b_o']]
 df_p_stats = df_p_stats[['Name','G','IP','SO','W','ER','H','BB','HBP','CG','SHO']]
 
-df_p_stats = df_p_stats.replace(list(df_team_abbr["BaseballReference"]), list(df_team_abbr["DraftKings"]))
-df_p_stats = df_p_stats.replace(list(df_name_spelling["BaseballReference"]), list(df_name_spelling["DraftKings"]))
+df_t_stats = df_t_stats.replace(list(df_team_abbr["BaseballReference"]), list(df_team_abbr["DraftKings"]))
+df_t_stats = df_t_stats.replace(list(df_name_spelling["BaseballReference"]), list(df_name_spelling["DraftKings"]))
 
 df_dk = pd.merge(df_lineups, df_dk, on='Name', how='inner')
 df_dk = pd.merge(df_dk, df_p_stats, on='Name', how='inner')
@@ -77,7 +77,7 @@ df_p_stats['Name'] = name[0]
 
 df_t_stats = df_t_stats[['Tm','G','SO','H','R','BB']]
 
-games = df_p_stats['G'].sum()
+games = df_t_stats['G'].sum()
 
 lg_hits = df_t_stats['H'].sum()
 lg_hits_g = lg_hits/games
@@ -120,23 +120,11 @@ for i in df_dk.index:
     else:
         df_dk['Opp'][i] = df_dk['team_1'][i]
 
-# starting_pitchers = {}
-# for pos in df_dk[' b/o'].unique():
-#     if pos == 'SP':
-#         availables_sp = df_dk[df_dk[' b/o'] == pos]
-#         starting_pitchers = list(availables_sp[['TmAbb', 'Name']].set_index('TmAbb').to_dict().values())[0]
-
-# df_dk['vT'] = None
-#
-# for i in df_dk.index:
-#     for j in starting_pitchers:
-#         if df_dk['Opp'][i] == j:
-#             df_dk['vT'][i] = starting_pitchers[j]
-#
 df_t_stats = df_t_stats.rename(columns={'Tm': 'Opp'})
 df_dk.drop(columns=['team_1','team_2'], inplace=True)
-#
+
 df_t_stats = df_t_stats[['Opp','h_fac','so_fac','r_fac','bb_fac']]
+df_dk = df_dk[df_dk['b_o'] == 'SP']
 df_dk = pd.merge(df_dk, df_t_stats, on='Opp', how='inner')
 
 # Adjusted Pitching Projections
@@ -145,9 +133,9 @@ proj_so = df_dk['SO'] * df_dk['so_fac']
 proj_r = df_dk['ER'] * df_dk['r_fac']
 proj_bb = df_dk['BB'] * df_dk['bb_fac']
 
-proj_pts_vP = proj_hits + proj_so + proj_r + proj_bb + df_dk['HBP']
+proj_pts_vP = proj_hits + proj_so + proj_r + proj_bb + df_dk['HBP'] + df_dk['IP'] + df_dk['W'] + df_dk['CG'] + df_dk['SHO']
 
-df_dk['pj_vP'] = round(proj_pts_vP, 2)
+df_dk['pj_vT'] = round(proj_pts_vP, 2)
 
 pd.set_option('display.max_rows', None)
 # pd.set_option('display.max_columns', None)
