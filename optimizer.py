@@ -12,7 +12,7 @@ df_dk = pd.DataFrame(data)
 df_lineups = pd.DataFrame(starting_lineups)
 df_name_spelling = pd.DataFrame(name_spelling)
 df_projections = pd.DataFrame(projections)
-df_projections = df_projections[['Name','pj_vP']]
+df_projections = df_projections[['Name','pj_vO']]
 
 #re-organize data
 new = df_dk['Roster Position'].str.split('/', n=1, expand=True)
@@ -41,8 +41,8 @@ outfield = availables[(availables['position_1'] == 'OF') | (availables['position
 positions = 10
 available_players = list(availables['Name'])
 # num_available = list(availables[' game_number'])
-points = list(availables['AvgPointsPerGame'])
-# points = list(availables['pj_vP'])
+# points = list(availables['AvgPointsPerGame'])
+points = list(availables['pj_vO'])
 salaries = list(availables['Salary'])
 position_1 = list(availables['position_1'])
 position_2 = list(availables['position_2'])
@@ -117,7 +117,6 @@ prob += lpSum(use_vars[v] for v in third) == 1
 prob += lpSum(use_vars[v] for v in short) == 1
 prob += lpSum(use_vars[v] for v in outfield) == 3
 
-print(pitcher)
 
 prob.solve()
 print("Status: ", LpStatus[prob.status])
