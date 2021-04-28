@@ -3,7 +3,7 @@ import pandas as pd
 
 # import csv data
 data = pd.read_csv('./Data/DKSalaries.csv')
-starting_lineups = pd.read_csv('./Data/Lineups_2021_04_24.csv')
+starting_lineups = pd.read_csv('./Data/Lineups_2021_04_28.csv')
 name_spelling = pd.read_csv('./Data/name_spelling.csv')
 projections = pd.read_csv('./projections.csv')
 
@@ -41,8 +41,8 @@ outfield = availables[(availables['position_1'] == 'OF') | (availables['position
 positions = 10
 available_players = list(availables['Name'])
 # num_available = list(availables[' game_number'])
-# points = list(availables['AvgPointsPerGame'])
-points = list(availables['pj_vO'])
+points = list(availables['AvgPointsPerGame'])
+# points = list(availables['pj_vO'])
 salaries = list(availables['Salary'])
 position_1 = list(availables['position_1'])
 position_2 = list(availables['position_2'])

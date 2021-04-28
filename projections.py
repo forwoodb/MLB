@@ -7,7 +7,7 @@ csv_dk = pd.read_csv('./Data/DKSalaries.csv')
 csv_b_stats = pd.read_csv('./Data/br_b_stats.csv')
 csv_p_stats = pd.read_csv('./Data/br_p_stats.csv')
 csv_t_stats = pd.read_csv('./Data/br_t_stats.csv')
-csv_starting_lineups = pd.read_csv('./Data/Lineups_2021_04_24.csv')
+csv_starting_lineups = pd.read_csv('./Data/Lineups_2021_04_28.csv')
 csv_name_spelling = pd.read_csv('./Data/name_spelling.csv')
 csv_team_abbr = pd.read_csv('./Data/team_abb.csv')
 
@@ -148,11 +148,11 @@ def batters(df):
 
     # Eliminate batting order positions
     df = df[df['b_o'] != 'SP']
-    df = df[df['b_o'] != '9']
-    df = df[df['b_o'] != '8']
-    df = df[df['b_o'] != '7']
-    df = df[df['b_o'] != '6']
-    df = df[df['b_o'] != '5']
+    # df = df[df['b_o'] != '9']
+    # df = df[df['b_o'] != '8']
+    # df = df[df['b_o'] != '7']
+    # df = df[df['b_o'] != '6']
+    # df = df[df['b_o'] != '5']
 
     df = pd.merge(df, df_vP, on='vSP', how='inner')
 
@@ -211,12 +211,15 @@ def pitchers(df):
 
     proj_pts = (hits_allowed + innings + strike_outs + wins + comp_gm + earned_runs + walks + HBP + shut_outs)
     df['pj_pts'] = round(proj_pts, 2)
-
+    #
     # # Team Factors for Pitching
     df_vT.drop(df_vT.tail(2).index,inplace=True)
     name = df_p_stats['Name'].str.split('*', n=1, expand=True)
     name = name[0].str.split('\\', n=1, expand=True)
     df_p_stats['Name'] = name[0]
+
+    # pd.set_option('display.max_rows', None)
+    # print(df)
 
     df_vT = df_vT[['Tm','G','SO','H','R','BB']]
 
@@ -296,8 +299,8 @@ df_proj = df_proj.append(p_proj)
 pd.set_option('display.max_rows', None)
 # pd.set_option('display.max_columns', None)
 print(df_proj)
-#
-# df_proj.to_csv('./projections.csv')
+
+df_proj.to_csv('./projections.csv')
 # #
 # # # * Two players named Will Smith produces doubles
 # #
