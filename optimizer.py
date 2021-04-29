@@ -1,5 +1,6 @@
 from pulp import *
 import pandas as pd
+import csv
 
 # import csv data
 data = pd.read_csv('./Data/DKSalaries.csv')
@@ -41,8 +42,8 @@ outfield = availables[(availables['position_1'] == 'OF') | (availables['position
 positions = 10
 available_players = list(availables['Name'])
 # num_available = list(availables[' game_number'])
-points = list(availables['AvgPointsPerGame'])
-# points = list(availables['pj_vO'])
+# points = list(availables['AvgPointsPerGame'])
+points = list(availables['pj_vO'])
 salaries = list(availables['Salary'])
 position_1 = list(availables['position_1'])
 position_2 = list(availables['position_2'])
@@ -122,38 +123,56 @@ prob.solve()
 print("Status: ", LpStatus[prob.status])
 print(value(prob.objective))
 
+# print(prob)
 
-# TOL = .00001
-#
-# # for i in available_players:
-# #     if use_vars[i].varValue > TOL:
-# #         print("Put into lineup", i)
-#
-# for v in prob.variables():
-#     if v.varValue != 0:
-#         print(v.name, "=", v.varValue)
-#
-# print("Projected points", value(prob.objective))
+TOL = .00001
 
-def summary(prob):
-    div = '---------------------------------------\n'
-    print("Variables:\n")
-    score = str(prob.objective)
-    constraints = [str(const) for const in prob.constraints.values()]
-    for v in prob.variables():
-        score = score.replace(v.name, str(v.varValue))
-        constraints = [const.replace(v.name, str(v.varValue)) for const in constraints]
-        if v.varValue != 0:
-            print(v.name, "=", v.varValue)
-    print(div)
-    print("Constraints:")
-    for constraint in constraints:
-        constraint_pretty = " + ".join(re.findall("[0-9\.]*\*1.0", constraint))
-        if constraint_pretty != "":
-            print("{} = {}".format(constraint_pretty, eval(constraint_pretty)))
-    print(div)
-    print("Score:")
-    score_pretty = " + ".join(re.findall("[0-9\.]+\*1.0", score))
-    print("{} = {}".format(score_pretty, eval(score)))
+for i in available_players:
+    if use_vars[i].varValue > TOL:
+        print("Put into lineup", i)
 
-summary(prob)
+# appg = ['APPG']
+pj_vO = ['pj_vO']
+
+for v in prob.variables():
+	if v.varValue != 0:
+		print(v.name, "=", v.varValue)
+		# appg.append(v.name)
+		pj_vO.append(v.name)
+
+with open('./lineups.csv', 'r') as fp:
+	r = csv.reader(fp)
+
+	with open('./lineups.csv', 'a') as fp:
+		wr = csv.writer(fp)
+		for row in r:
+			# wr.writerow(appg)
+			wr.writerow(pj_vO)
+
+# appg.to_csv('./lineups.csv', mode='a', header=False)
+# pj_vO.to_csv('./lineups.csv', mode='a', header=False)
+
+print("Projected points", value(prob.objective))
+
+# def summary(prob):
+#     div = '---------------------------------------\n'
+#     print("Variables:\n")
+#     score = str(prob.objective)
+#     constraints = [str(const) for const in prob.constraints.values()]
+#     for v in prob.variables():
+#         score = score.replace(v.name, str(v.varValue))
+#         constraints = [const.replace(v.name, str(v.varValue)) for const in constraints]
+#         if v.varValue != 0:
+#             print(v.name, "=", v.varValue)
+#     print(div)
+#     print("Constraints:")
+#     for constraint in constraints:
+#         constraint_pretty = " + ".join(re.findall("[0-9\.]*\*1.0", constraint))
+#         if constraint_pretty != "":
+#             print("{} = {}".format(constraint_pretty, eval(constraint_pretty)))
+#     print(div)
+#     print("Score:")
+#     score_pretty = " + ".join(re.findall("[0-9\.]+\*1.0", score))
+#     print("{} = {}".format(score_pretty, eval(score)))
+#
+# summary(prob)
