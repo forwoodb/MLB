@@ -48,8 +48,8 @@ outfield = availables[(availables['position_1'] == 'OF') | (availables['position
 
 # Lists
 available_players = list(availables['Name'])
-points = list(availables['AvgPointsPerGame'])
-# points = list(availables['pj_vO'])
+# points = list(availables['AvgPointsPerGame'])
+points = list(availables['pj_vO'])
 salaries = list(availables['Salary'])
 position_1 = list(availables['position_1'])
 position_2 = list(availables['position_2'])
@@ -154,8 +154,8 @@ print(value(prob.objective))
 #     if use_vars[i].varValue > TOL:
 #         print("Put into lineup", i)
 
-appg = [date, 'APPG']
-# pj_vO = [date, 'pj_vO']
+# appg = [date, 'APPG']
+pj_vO = [date, 'pj_vO']
 
 
 
@@ -173,8 +173,8 @@ def summary(prob):
 			print(v.name, "=", v.varValue)
 
 			# to list
-			appg.append(v.name)
-			# pj_vO.append(v.name)
+			# appg.append(v.name)
+			pj_vO.append(v.name)
 
 
 	print(div)
@@ -189,17 +189,17 @@ def summary(prob):
 	print("{} = {}".format(score_pretty, eval(score)))
 
 	# to list
-	appg.append(eval(score))
-	# pj_vO.append(score_pretty)
+	# appg.append(eval(score))
+	pj_vO.append(score_pretty)
 
 	# # to lineups.csv
 	# with open('./lineups.csv', 'r') as fp:
 	# 	r = csv.reader(fp)
 
 	# need blank row at bottom of csv
-	with open('./lineups.csv', 'a') as fp:
-		wr = csv.writer(fp)
-		for row in fp:
-			wr.writerow(appg)
-			# wr.writerow(pj_vO)
+	with open('./lineups.csv', 'a') as f:
+		wr = csv.writer(f)
+		# wr.writerow(appg)
+		wr.writerow(pj_vO)
+
 summary(prob)
