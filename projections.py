@@ -2,20 +2,27 @@ import pandas as pd
 import numpy as np
 import re
 
+day = '28'
+month = '04'
+year = '2021'
+date = '4-' + day + '-21'
+
+# Spelling Discrepencies
+csv_name_spelling = pd.read_csv('./Spelling/name_spelling.csv')
+csv_team_abbr = pd.read_csv('./Spelling/team_abb.csv')
+
 # Import data.
-csv_dk = pd.read_csv('./Data/DKSalaries.csv')
-csv_b_stats = pd.read_csv('./Data/br_b_stats.csv')
-csv_p_stats = pd.read_csv('./Data/br_p_stats.csv')
-csv_t_stats = pd.read_csv('./Data/br_t_stats.csv')
-csv_starting_lineups = pd.read_csv('./Data/Lineups_2021_04_28.csv')
-csv_name_spelling = pd.read_csv('./Data/name_spelling.csv')
-csv_team_abbr = pd.read_csv('./Data/team_abb.csv')
+csv_dk = pd.read_csv('./Data/' + date + '/DKSalaries.csv')
+csv_b_stats = pd.read_csv('./Data/' + date + '/br_b_stats.csv')
+csv_p_stats = pd.read_csv('./Data/' + date + '/br_p_stats.csv')
+csv_t_stats = pd.read_csv('./Data/' + date + '/br_t_stats.csv')
+csv_starting_lineups = pd.read_csv('./Data/' + date + '/Lineups_' + year + '_' + month + '_' + day + '.csv')
 
 # Convert to dataframes.
+df_dk = pd.DataFrame(csv_dk)
 df_b_stats = pd.DataFrame(csv_b_stats)
 df_p_stats = pd.DataFrame(csv_p_stats)
 df_t_stats = pd.DataFrame(csv_t_stats)
-df_dk = pd.DataFrame(csv_dk)
 df_lineups = pd.DataFrame(csv_starting_lineups)
 df_name_spelling = pd.DataFrame(csv_name_spelling)
 df_team_abbr = pd.DataFrame(csv_team_abbr)
@@ -300,7 +307,7 @@ pd.set_option('display.max_rows', None)
 # pd.set_option('display.max_columns', None)
 print(df_proj)
 
-df_proj.to_csv('./projections.csv')
+df_proj.to_csv('./Data/' + date + '/projections.csv')
 # #
 # # # * Two players named Will Smith produces doubles
 # #
