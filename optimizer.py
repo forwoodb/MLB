@@ -190,7 +190,7 @@ def summary(prob):
 
 	# to list
 	# appg.append(eval(score))
-	pj_vO.append(score_pretty)
+	pj_vO.append(eval(score))
 
 	# # to lineups.csv
 	# with open('./lineups.csv', 'r') as fp:
