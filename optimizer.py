@@ -48,7 +48,7 @@ outfield = availables[(availables['position_1'] == 'OF') | (availables['position
 
 # Lists
 available_players = list(availables['Name'])
-# points = list(availables['AvgPointsPerGame'])
+points = list(availables['AvgPointsPerGame'])
 points = list(availables['pj_vO'])
 salaries = list(availables['Salary'])
 position_1 = list(availables['position_1'])
@@ -197,7 +197,7 @@ def summary(prob):
 	# 	r = csv.reader(fp)
 
 	# need blank row at bottom of csv
-	with open('./lineups.csv', 'a') as f:
+	with open('./Data/' + date + '/lineups.csv', 'a') as f:
 		wr = csv.writer(f)
 		# wr.writerow(appg)
 		wr.writerow(pj_vO)
