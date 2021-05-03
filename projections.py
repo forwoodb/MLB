@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import re
 
-day = '28'
+day = '24'
 month = '04'
 year = '2021'
 date = '4-' + day + '-21'

@@ -14,6 +14,7 @@ csv_stats_batter = pd.read_csv('./Data/' + date + '/FanGraphs Leaderboard bat.cs
 csv_stats_pitcher = pd.read_csv('./Data/' + date + '/FanGraphs Leaderboard pitch.csv')
 
 # Convert csv data to dataframe.
+df_name_spelling = pd.DataFrame(name_spelling)
 df_lineups = pd.DataFrame(csv_lineups)
 df_stats_batter = pd.DataFrame(csv_stats_batter)
 df_stats_pitcher = pd.DataFrame(csv_stats_pitcher)
@@ -62,6 +63,9 @@ df_stats_pitcher['Total'] = df_stats_pitcher['dk_IP'] + df_stats_pitcher['dk_SO'
 
 df_totals = df_stats_batter[['Name', 'Total']]
 df_totals = df_totals.append(df_stats_pitcher[['Name', 'Total']])
+df_totals = df_totals.replace(list(df_name_spelling["FanGraphs"]), list(df_name_spelling["DraftKings"]))
+df_totals = df_totals.replace(list(df_name_spelling["FanGraphs"]), list(df_name_spelling["DraftKings"]))
+
 
 df_totals_APPG = df_totals.rename(columns={'Name': 'Name_APPG','Total': 'Total APPG'})
 df_totals_pj_vO = df_totals.rename(columns={'Name': 'Name_pj_vO','Total': 'Total_pj_vO'})
@@ -69,6 +73,10 @@ df_totals_APPG_6 = df_totals.rename(columns={'Name': 'Name_APPG_1-6','Total': 'T
 df_totals_APPG_5 = df_totals.rename(columns={'Name': 'Name_APPG_1-5','Total': 'Total_APPG_1-5'})
 df_totals_APPG_4= df_totals.rename(columns={'Name': 'Name_APPG_1-4','Total': 'Total_APPG_1-4'})
 df_totals_APPG_3= df_totals.rename(columns={'Name': 'Name_APPG_1-3','Total': 'Total_APPG_1-3'})
+df_totals_pj_vO_6 = df_totals.rename(columns={'Name': 'Name_pj_vO_1-6','Total': 'Total_pj_vO_1-6'})
+df_totals_pj_vO_5 = df_totals.rename(columns={'Name': 'Name_pj_vO_1-5','Total': 'Total_pj_vO_1-5'})
+df_totals_pj_vO_4= df_totals.rename(columns={'Name': 'Name_pj_vO_1-4','Total': 'Total_pj_vO_1-4'})
+df_totals_pj_vO_3= df_totals.rename(columns={'Name': 'Name_pj_vO_1-3','Total': 'Total_pj_vO_1-3'})
 
 # With transpose
 df_lineups = df_lineups.T
@@ -81,35 +89,22 @@ df_lineups = pd.merge(df_lineups, df_totals_pj_vO, how='left', left_on='pj_vO', 
 df_lineups = pd.merge(df_lineups, df_totals_APPG_6, how='left', left_on='APPG 1-6', right_on='Name_APPG_1-6')
 df_lineups = pd.merge(df_lineups, df_totals_APPG_5, how='left', left_on='APPG 1-5', right_on='Name_APPG_1-5')
 df_lineups = pd.merge(df_lineups, df_totals_APPG_4, how='left', left_on='APPG 1-4', right_on='Name_APPG_1-4')
-df_lineups = pd.merge(df_lineups, df_totals_APPG_3, how='left', left_on='APPG 1-3', right_on='Name_APPG_1-3')
-
-# cols = []
-# count = 1
-# for column in df_lineups.columns:
-#     if column == 'Total_x':
-#         cols.append(f'Total_x{count}')
-#         count+=1
-#         continue
-#     cols.append(column)
-# df_lineups.columns = cols
-#
-# cols = []
-# count = 1
-# for column in df_lineups.columns:
-#     if column == 'Total_y':
-#         cols.append(f'Total_y{count}')
-#         count+=1
-#         continue
-#     cols.append(column)
-# df_lineups.columns = cols
-
+# df_lineups = pd.merge(df_lineups, df_totals_APPG_3, how='left', left_on='APPG 1-3', right_on='Name_APPG_1-3')
+df_lineups = pd.merge(df_lineups, df_totals_pj_vO_6, how='left', left_on='pj_vO 1-6', right_on='Name_pj_vO_1-6')
+df_lineups = pd.merge(df_lineups, df_totals_pj_vO_5, how='left', left_on='pj_vO 1-5', right_on='Name_pj_vO_1-5')
+df_lineups = pd.merge(df_lineups, df_totals_pj_vO_4, how='left', left_on='pj_vO 1-4', right_on='Name_pj_vO_1-4')
+# df_lineups = pd.merge(df_lineups, df_totals_pj_vO_3, how='left', left_on='pj_vO 1-3', right_on='Name_pj_vO_1-3')
 
 df_lineups['Total APPG'][11] = df_lineups['Total APPG'].sum()
 df_lineups['Total_pj_vO'][11] = df_lineups['Total_pj_vO'].sum()
 df_lineups['Total_APPG_1-6'][11] = df_lineups['Total_APPG_1-6'].sum()
 df_lineups['Total_APPG_1-5'][11] = df_lineups['Total_APPG_1-5'].sum()
 df_lineups['Total_APPG_1-4'][11] = df_lineups['Total_APPG_1-4'].sum()
-df_lineups['Total_APPG_1-3'][11] = df_lineups['Total_APPG_1-3'].sum()
+# df_lineups['Total_APPG_1-3'][11] = df_lineups['Total_APPG_1-3'].sum()
+df_lineups['Total_pj_vO_1-6'][11] = df_lineups['Total_pj_vO_1-6'].sum()
+df_lineups['Total_pj_vO_1-5'][11] = df_lineups['Total_pj_vO_1-5'].sum()
+df_lineups['Total_pj_vO_1-4'][11] = df_lineups['Total_pj_vO_1-4'].sum()
+# df_lineups['Total_pj_vO_1-3'][11] = df_lineups['Total_pj_vO_1-3'].sum()
 
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
