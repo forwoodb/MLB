@@ -1,7 +1,8 @@
+# check out the collections library
 import pandas as pd
 
-day = '28'
-month = '4'
+day = '24'
+month = '04'
 year = '2021'
 date = month + '-' + day + '-' + '21'
 
@@ -66,36 +67,55 @@ df_totals = df_totals.append(df_stats_pitcher[['Name', 'Total']])
 df_totals = df_totals.replace(list(df_name_spelling["FanGraphs"]), list(df_name_spelling["DraftKings"]))
 df_totals = df_totals.replace(list(df_name_spelling["FanGraphs"]), list(df_name_spelling["DraftKings"]))
 
+# * Use loops from results analysis
 
-df_totals_APPG = df_totals.rename(columns={'Name': 'Name_APPG','Total': 'Total APPG'})
-df_totals_pj_vO = df_totals.rename(columns={'Name': 'Name_pj_vO','Total': 'Total_pj_vO'})
-df_totals_APPG_6 = df_totals.rename(columns={'Name': 'Name_APPG_1-6','Total': 'Total_APPG_1-6'})
-df_totals_APPG_5 = df_totals.rename(columns={'Name': 'Name_APPG_1-5','Total': 'Total_APPG_1-5'})
-df_totals_APPG_4= df_totals.rename(columns={'Name': 'Name_APPG_1-4','Total': 'Total_APPG_1-4'})
-df_totals_APPG_3= df_totals.rename(columns={'Name': 'Name_APPG_1-3','Total': 'Total_APPG_1-3'})
-df_totals_pj_vO_6 = df_totals.rename(columns={'Name': 'Name_pj_vO_1-6','Total': 'Total_pj_vO_1-6'})
-df_totals_pj_vO_5 = df_totals.rename(columns={'Name': 'Name_pj_vO_1-5','Total': 'Total_pj_vO_1-5'})
-df_totals_pj_vO_4= df_totals.rename(columns={'Name': 'Name_pj_vO_1-4','Total': 'Total_pj_vO_1-4'})
-df_totals_pj_vO_3= df_totals.rename(columns={'Name': 'Name_pj_vO_1-3','Total': 'Total_pj_vO_1-3'})
+new_col = []
+new_dfs = []
+
+for row in df_lineups['Lineup Type']:
+    new_col.append(row)
+
+for col in new_col:
+    df = ('df_totals_' + col)
+    new_dfs.append(df)
 
 # With transpose
 df_lineups = df_lineups.T
 df_lineups.columns=df_lineups.iloc[1]
-
 df_lineups = df_lineups.reindex(df_lineups.index.drop('Lineup Type'))
+
+# rename = dict(zip(new_dfs,new_col))
+# rename = tup(zip(new_dfs,new_col))
+
+# for name in rename:
+#     name = df_totals.rename(columns={'Name': 'Name_' + rename[name],'Total': 'Total_' + rename[name]})
+#     df_lineups = pd.merge(df_lineups, name, how='left', left_on=rename[name], right_on='Name_' + rename[name])
+    # print(rename)
+# TypeError: 'DataFrame' objects are mutable, thus they cannot be hashed
+
+df_totals_APPG = df_totals.rename(columns={'Name': 'Name_APPG','Total': 'Total_APPG'})
+df_totals_pj_vO = df_totals.rename(columns={'Name': 'Name_pj_vO','Total': 'Total_pj_vO'})
+df_totals_APPG_6 = df_totals.rename(columns={'Name': 'Name_APPG_1-6','Total': 'Total_APPG_1-6'})
+df_totals_APPG_5 = df_totals.rename(columns={'Name': 'Name_APPG_1-5','Total': 'Total_APPG_1-5'})
+df_totals_APPG_4= df_totals.rename(columns={'Name': 'Name_APPG_1-4','Total': 'Total_APPG_1-4'})
+# df_totals_APPG_3= df_totals.rename(columns={'Name': 'Name_APPG_1-3','Total': 'Total_APPG_1-3'})
+df_totals_pj_vO_6 = df_totals.rename(columns={'Name': 'Name_pj_vO_1-6','Total': 'Total_pj_vO_1-6'})
+df_totals_pj_vO_5 = df_totals.rename(columns={'Name': 'Name_pj_vO_1-5','Total': 'Total_pj_vO_1-5'})
+df_totals_pj_vO_4= df_totals.rename(columns={'Name': 'Name_pj_vO_1-4','Total': 'Total_pj_vO_1-4'})
+# df_totals_pj_vO_3= df_totals.rename(columns={'Name': 'Name_pj_vO_1-3','Total': 'Total_pj_vO_1-3'})
 
 df_lineups = pd.merge(df_lineups, df_totals_APPG, how='left', left_on='APPG', right_on='Name_APPG')
 df_lineups = pd.merge(df_lineups, df_totals_pj_vO, how='left', left_on='pj_vO', right_on='Name_pj_vO')
-df_lineups = pd.merge(df_lineups, df_totals_APPG_6, how='left', left_on='APPG 1-6', right_on='Name_APPG_1-6')
-df_lineups = pd.merge(df_lineups, df_totals_APPG_5, how='left', left_on='APPG 1-5', right_on='Name_APPG_1-5')
-df_lineups = pd.merge(df_lineups, df_totals_APPG_4, how='left', left_on='APPG 1-4', right_on='Name_APPG_1-4')
-# df_lineups = pd.merge(df_lineups, df_totals_APPG_3, how='left', left_on='APPG 1-3', right_on='Name_APPG_1-3')
-df_lineups = pd.merge(df_lineups, df_totals_pj_vO_6, how='left', left_on='pj_vO 1-6', right_on='Name_pj_vO_1-6')
-df_lineups = pd.merge(df_lineups, df_totals_pj_vO_5, how='left', left_on='pj_vO 1-5', right_on='Name_pj_vO_1-5')
-df_lineups = pd.merge(df_lineups, df_totals_pj_vO_4, how='left', left_on='pj_vO 1-4', right_on='Name_pj_vO_1-4')
-# df_lineups = pd.merge(df_lineups, df_totals_pj_vO_3, how='left', left_on='pj_vO 1-3', right_on='Name_pj_vO_1-3')
+df_lineups = pd.merge(df_lineups, df_totals_APPG_6, how='left', left_on='APPG_1-6', right_on='Name_APPG_1-6')
+df_lineups = pd.merge(df_lineups, df_totals_APPG_5, how='left', left_on='APPG_1-5', right_on='Name_APPG_1-5')
+df_lineups = pd.merge(df_lineups, df_totals_APPG_4, how='left', left_on='APPG_1-4', right_on='Name_APPG_1-4')
+# df_lineups = pd.merge(df_lineups, df_totals_APPG_3, how='left', left_on='APPG_1-3', right_on='Name_APPG_1-3')
+df_lineups = pd.merge(df_lineups, df_totals_pj_vO_6, how='left', left_on='pj_vO_1-6', right_on='Name_pj_vO_1-6')
+df_lineups = pd.merge(df_lineups, df_totals_pj_vO_5, how='left', left_on='pj_vO_1-5', right_on='Name_pj_vO_1-5')
+df_lineups = pd.merge(df_lineups, df_totals_pj_vO_4, how='left', left_on='pj_vO_1-4', right_on='Name_pj_vO_1-4')
+# df_lineups = pd.merge(df_lineups, df_totals_pj_vO_3, how='left', left_on='pj_vO_1-3', right_on='Name_pj_vO_1-3')
 
-df_lineups['Total APPG'][11] = df_lineups['Total APPG'].sum()
+df_lineups['Total_APPG'][11] = df_lineups['Total_APPG'].sum()
 df_lineups['Total_pj_vO'][11] = df_lineups['Total_pj_vO'].sum()
 df_lineups['Total_APPG_1-6'][11] = df_lineups['Total_APPG_1-6'].sum()
 df_lineups['Total_APPG_1-5'][11] = df_lineups['Total_APPG_1-5'].sum()

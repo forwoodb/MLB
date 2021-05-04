@@ -5,7 +5,7 @@ import csv
 day = '24'
 month = '04'
 year = '2021'
-date = '4-' + day + '-21'
+date = month + '-' + day + '-21'
 
 # Spelling Discrepencies
 name_spelling = pd.read_csv('./Spelling/name_spelling.csv')
@@ -205,59 +205,51 @@ optimize(points, new_list)
 availables = availables[availables[' batting order'] != '9']
 availables = availables[availables[' batting order'] != '8']
 availables = availables[availables[' batting order'] != '7']
-print(availables[' batting order'])
 points = list(availables['AvgPointsPerGame'])
-new_list = [date, 'APPG 1-6']
+new_list = [date, 'APPG_1-6']
 optimize(points, new_list)
 
 # pj_vO 1-6
 availables = availables[availables[' batting order'] != '9']
 availables = availables[availables[' batting order'] != '8']
 availables = availables[availables[' batting order'] != '7']
-print(availables[' batting order'])
-points = list(availables['AvgPointsPerGame'])
-new_list = [date, 'pj_vO 1-6']
+points = list(availables['pj_vO'])
+new_list = [date, 'pj_vO_1-6']
 optimize(points, new_list)
 
 # APPG 1-5
 availables = availables[availables[' batting order'] != '6']
-print(availables[' batting order'])
 points = list(availables['AvgPointsPerGame'])
-new_list = [date, 'APPG 1-5']
+new_list = [date, 'APPG_1-5']
 optimize(points, new_list)
 
 # pj_vO 1-5
 availables = availables[availables[' batting order'] != '6']
-print(availables[' batting order'])
-points = list(availables['AvgPointsPerGame'])
-new_list = [date, 'pj_vO 1-5']
+points = list(availables['pj_vO'])
+new_list = [date, 'pj_vO_1-5']
 optimize(points, new_list)
 
 # APPG 1-4
 availables = availables[availables[' batting order'] != '5']
-print(availables[' batting order'])
 points = list(availables['AvgPointsPerGame'])
-new_list = [date, 'APPG 1-4']
+new_list = [date, 'APPG_1-4']
 optimize(points, new_list)
 
 # pj_vO 1-4
 availables = availables[availables[' batting order'] != '5']
-print(availables[' batting order'])
-points = list(availables['AvgPointsPerGame'])
-new_list = [date, 'pj_vO 1-4']
+points = list(availables['pj_vO'])
+new_list = [date, 'pj_vO_1-4']
 optimize(points, new_list)
 #
 
 # APPG 1-3
 availables = availables[availables[' batting order'] != '4']
-print(availables[' batting order'])
 points = list(availables['AvgPointsPerGame'])
-new_list = [date, 'APPG 1-3']
+new_list = [date, 'APPG_1-3']
 optimize(points, new_list)
 
 # pj_vO 1-3
 availables = availables[availables[' batting order'] != '4']
-print(availables[' batting order'])
-points = list(availables['AvgPointsPerGame'])
-new_list = [date, 'pj_vO 1-3']
+points = list(availables['pj_vO'])
+new_list = [date, 'pj_vO_1-3']
 optimize(points, new_list)

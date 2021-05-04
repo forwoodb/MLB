@@ -2,10 +2,10 @@ import pandas as pd
 import numpy as np
 import re
 
-day = '24'
+day = '30'
 month = '04'
 year = '2021'
-date = '4-' + day + '-21'
+date = month + '-' + day + '-21'
 
 # Spelling Discrepencies
 csv_name_spelling = pd.read_csv('./Spelling/name_spelling.csv')
@@ -39,7 +39,7 @@ def bottom_rows(df):
     name = df['Name'].str.split('\*|\#', n=1, expand=True)
     name = name[0].str.split('\\', n=1, expand=True)
     df['Name'] = name[0]
-#
+
 # Batting Stats
 def batters(df):
     df = df_dk
