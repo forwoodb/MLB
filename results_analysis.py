@@ -1,6 +1,7 @@
 import pandas as pd
 
 # date = '04-30-21'
+# dates = ['05-04-21']
 dates = ['05-04-21','05-03-21','04-30-21','04-28-21','04-24-21']
 
 contests = []
@@ -39,22 +40,25 @@ df_strat['Points'] = scores
 
 df_strat = df_strat.sort_values( by = ['Date', 'Points'], ascending = [False, False])
 
-# df_strat = df_strat.groupby(['Date'])
-
 df_strat['Rank'] = df_strat.groupby(['Date'])['Points'].rank(pct=True)
-# df_strat['Rank'] = df_strat['Points'].rank()
 
-# pd.set_option('display.max_columns', None)
-# print(df_strat)
+pd.set_option('display.max_rows', None)
+print(df_strat)
 
-strats = []
+df_ranks = (df_strat[df_strat['Rank'] > .66].groupby('Name')['Rank'].count())/(df_strat.groupby(['Name'])['Name'].count())
+df_ranks = df_ranks.sort_values(ascending=False)
 
-for i in strategies:
-    if i not in strats:
-        strats.append(i)
-
-df_ranks = df_strat.groupby(['Name']).sum()
-df_ranks = df_ranks.sort_values(by=['Rank'], ascending=False)
-
-pd.set_option('display.max_columns', None)
+pd.set_option('display.max_rows', None)
 print(df_ranks)
+
+# strats = []
+#
+# for i in strategies:
+#     if i not in strats:
+#         strats.append(i)
+#
+# df_ranks = df_strat.groupby(['Name']).sum()
+# df_ranks = df_ranks.sort_values(by=['Rank'], ascending=False)
+#
+# pd.set_option('display.max_columns', None)
+# print(df_ranks)

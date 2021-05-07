@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import re
 
-day = '04'
+day = '07'
 month = '05'
 year = '2021'
 date = month + '-' + day + '-21'
@@ -12,7 +12,7 @@ csv_name_spelling = pd.read_csv('./Spelling/name_spelling.csv')
 csv_team_abbr = pd.read_csv('./Spelling/team_abb.csv')
 
 # Import data.
-csv_dk = pd.read_csv('./Data/' + date + '/DKSalaries12.csv')
+csv_dk = pd.read_csv('./Data/' + date + '/DKSalaries7t.csv')
 csv_b_stats = pd.read_csv('./Data/' + date + '/br_b_stats.csv')
 csv_p_stats = pd.read_csv('./Data/' + date + '/br_p_stats.csv')
 csv_t_stats = pd.read_csv('./Data/' + date + '/br_t_stats.csv')

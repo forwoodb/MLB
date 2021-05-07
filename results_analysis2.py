@@ -3,6 +3,9 @@ import pandas as pd
 # date = '04-30-21'
 dates = ['05-04-21','05-03-21','04-30-21','04-28-21','04-24-21']
 
+# 7 game
+dates = ['05-04-21','04-24-21']
+
 
 for date in dates:
     contests = []
@@ -56,7 +59,7 @@ for date in dates:
     # for i in df_strat['Name'][0]:
     #     print(i)
 
-    appg = zip(df_strat['Name'][0])
+    # appg = zip(df_strat['Name'][0])
 
     pd.set_option('display.max_columns', None)
     print(appg)
