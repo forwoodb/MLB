@@ -2,8 +2,8 @@ from pulp import *
 import pandas as pd
 import csv
 
-day = '24'
-month = '04'
+day = '04'
+month = '05'
 year = '2021'
 date = month + '-' + day + '-21'
 
@@ -12,7 +12,7 @@ name_spelling = pd.read_csv('./Spelling/name_spelling.csv')
 projections = pd.read_csv('./Data/' + date + '/projections.csv')
 
 # import csv data
-csv_dk = pd.read_csv('./Data/' + date + '/DKSalaries.csv')
+csv_dk = pd.read_csv('./Data/' + date + '/DKSalaries12.csv')
 csv_starting_lineups = pd.read_csv('./Data/' + date + '/Lineups_' + year + '_' + month + '_' + day + '.csv')
 
 # convert to dataframe

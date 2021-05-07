@@ -1,8 +1,8 @@
 # check out the collections library
 import pandas as pd
 
-day = '24'
-month = '04'
+day = '04'
+month = '05'
 year = '2021'
 date = month + '-' + day + '-' + '21'
 
@@ -140,4 +140,4 @@ pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
 print(df_lineups)
 #
-# # df_lineups.to_csv('./Data/' + date + '/results.csv')
+df_lineups.to_csv('./Data/' + date + '/results.csv')

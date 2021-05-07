@@ -2,8 +2,8 @@ import pandas as pd
 import numpy as np
 import re
 
-day = '30'
-month = '04'
+day = '04'
+month = '05'
 year = '2021'
 date = month + '-' + day + '-21'
 
@@ -12,7 +12,7 @@ csv_name_spelling = pd.read_csv('./Spelling/name_spelling.csv')
 csv_team_abbr = pd.read_csv('./Spelling/team_abb.csv')
 
 # Import data.
-csv_dk = pd.read_csv('./Data/' + date + '/DKSalaries.csv')
+csv_dk = pd.read_csv('./Data/' + date + '/DKSalaries12.csv')
 csv_b_stats = pd.read_csv('./Data/' + date + '/br_b_stats.csv')
 csv_p_stats = pd.read_csv('./Data/' + date + '/br_p_stats.csv')
 csv_t_stats = pd.read_csv('./Data/' + date + '/br_t_stats.csv')
@@ -226,6 +226,7 @@ def pitchers(df):
     df_p_stats['Name'] = name[0]
 
     # pd.set_option('display.max_rows', None)
+    # pd.set_option('display.max_columns', None)
     # print(df)
 
     df_vT = df_vT[['Tm','G','SO','H','R','BB']]
@@ -243,7 +244,7 @@ def pitchers(df):
     so_g = df_vT['SO']/df_vT['G']
     so_fac = so_g/lg_so_g
     df_vT.insert(5, 'so_fac', round(so_fac, 2))
-
+#
     lg_r = df_vT['R'].sum()
     lg_r_g = lg_r/games
     r_g = df_vT['R']/df_vT['G']
@@ -293,7 +294,7 @@ def pitchers(df):
     # print(df)
     return df
 
-# batters(df_dk)
+# pitchers(df_dk)
 b_proj = batters(df_dk)
 b_proj = b_proj[['team', 'Name','b_o', 'pj_vO']]
 
@@ -308,6 +309,6 @@ pd.set_option('display.max_rows', None)
 print(df_proj)
 
 df_proj.to_csv('./Data/' + date + '/projections.csv')
-# #
-# # # * Two players named Will Smith produces doubles
-# #
+#
+# # * Two players named Will Smith produces doubles
+#
