@@ -201,55 +201,55 @@ points = list(availables['pj_vO'])
 new_list = [date, 'pj_vO']
 optimize(points, new_list)
 
-# APPG 1-6
-availables = availables[availables[' batting order'] != '9']
-availables = availables[availables[' batting order'] != '8']
-availables = availables[availables[' batting order'] != '7']
-points = list(availables['AvgPointsPerGame'])
-new_list = [date, 'APPG_1-6']
-optimize(points, new_list)
-
-# pj_vO 1-6
-availables = availables[availables[' batting order'] != '9']
-availables = availables[availables[' batting order'] != '8']
-availables = availables[availables[' batting order'] != '7']
-points = list(availables['pj_vO'])
-new_list = [date, 'pj_vO_1-6']
-optimize(points, new_list)
-
-# APPG 1-5
-availables = availables[availables[' batting order'] != '6']
-points = list(availables['AvgPointsPerGame'])
-new_list = [date, 'APPG_1-5']
-optimize(points, new_list)
-
-# pj_vO 1-5
-availables = availables[availables[' batting order'] != '6']
-points = list(availables['pj_vO'])
-new_list = [date, 'pj_vO_1-5']
-optimize(points, new_list)
-
-# APPG 1-4
-availables = availables[availables[' batting order'] != '5']
-points = list(availables['AvgPointsPerGame'])
-new_list = [date, 'APPG_1-4']
-optimize(points, new_list)
-
-# pj_vO 1-4
-availables = availables[availables[' batting order'] != '5']
-points = list(availables['pj_vO'])
-new_list = [date, 'pj_vO_1-4']
-optimize(points, new_list)
+# # APPG 1-6
+# availables = availables[availables[' batting order'] != '9']
+# availables = availables[availables[' batting order'] != '8']
+# availables = availables[availables[' batting order'] != '7']
+# points = list(availables['AvgPointsPerGame'])
+# new_list = [date, 'APPG_1-6']
+# optimize(points, new_list)
 #
-
-# APPG 1-3
-availables = availables[availables[' batting order'] != '4']
-points = list(availables['AvgPointsPerGame'])
-new_list = [date, 'APPG_1-3']
-optimize(points, new_list)
-
-# pj_vO 1-3
-availables = availables[availables[' batting order'] != '4']
-points = list(availables['pj_vO'])
-new_list = [date, 'pj_vO_1-3']
-optimize(points, new_list)
+# # pj_vO 1-6
+# availables = availables[availables[' batting order'] != '9']
+# availables = availables[availables[' batting order'] != '8']
+# availables = availables[availables[' batting order'] != '7']
+# points = list(availables['pj_vO'])
+# new_list = [date, 'pj_vO_1-6']
+# optimize(points, new_list)
+#
+# # APPG 1-5
+# availables = availables[availables[' batting order'] != '6']
+# points = list(availables['AvgPointsPerGame'])
+# new_list = [date, 'APPG_1-5']
+# optimize(points, new_list)
+#
+# # pj_vO 1-5
+# availables = availables[availables[' batting order'] != '6']
+# points = list(availables['pj_vO'])
+# new_list = [date, 'pj_vO_1-5']
+# optimize(points, new_list)
+#
+# # APPG 1-4
+# availables = availables[availables[' batting order'] != '5']
+# points = list(availables['AvgPointsPerGame'])
+# new_list = [date, 'APPG_1-4']
+# optimize(points, new_list)
+#
+# # pj_vO 1-4
+# availables = availables[availables[' batting order'] != '5']
+# points = list(availables['pj_vO'])
+# new_list = [date, 'pj_vO_1-4']
+# optimize(points, new_list)
+# #
+#
+# # APPG 1-3
+# availables = availables[availables[' batting order'] != '4']
+# points = list(availables['AvgPointsPerGame'])
+# new_list = [date, 'APPG_1-3']
+# optimize(points, new_list)
+#
+# # pj_vO 1-3
+# availables = availables[availables[' batting order'] != '4']
+# points = list(availables['pj_vO'])
+# new_list = [date, 'pj_vO_1-3']
+# optimize(points, new_list)

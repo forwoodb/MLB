@@ -45,10 +45,18 @@ df_strat['Rank'] = df_strat.groupby(['Date'])['Points'].rank(pct=True)
 pd.set_option('display.max_rows', None)
 print(df_strat)
 
+df_points = df_strat.groupby('Name')['Points'].mean()
+# df_ranks = df_strat[['Name','Points']].groupby('Name')['Points'].mean()
 df_ranks = (df_strat[df_strat['Rank'] > .66].groupby('Name')['Rank'].count())/(df_strat.groupby(['Name'])['Name'].count())
-df_ranks = df_ranks.sort_values(ascending=False)
+
+df_ranks = pd.merge(df_points.to_frame(), df_ranks.to_frame(), on='Name', how='inner')
+
+df_ranks = df_ranks.sort_values(by=0, ascending=False)
+# df_points = df_points.sort_values(ascending=False)
+
 
 pd.set_option('display.max_rows', None)
+# print(df_points)
 print(df_ranks)
 
 # strats = []
