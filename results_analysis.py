@@ -2,7 +2,8 @@ import pandas as pd
 
 # date = '04-30-21'
 # dates = ['05-04-21']
-dates = ['05-04-21','05-03-21','04-30-21','04-28-21','04-24-21']
+dates = ['05-07-21','05-04-21','05-03-21','04-30-21','04-28-21','04-24-21']
+
 
 contests = []
 
@@ -47,7 +48,9 @@ print(df_strat)
 
 df_points = df_strat.groupby('Name')['Points'].mean()
 # df_ranks = df_strat[['Name','Points']].groupby('Name')['Points'].mean()
-df_ranks = (df_strat[df_strat['Rank'] > .66].groupby('Name')['Rank'].count())/(df_strat.groupby(['Name'])['Name'].count())
+
+# Win % Required
+df_ranks = (df_strat[df_strat['Rank'] > .5].groupby('Name')['Rank'].count())/(df_strat.groupby(['Name'])['Name'].count())
 
 df_ranks = pd.merge(df_points.to_frame(), df_ranks.to_frame(), on='Name', how='inner')
 

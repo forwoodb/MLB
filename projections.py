@@ -2,17 +2,19 @@ import pandas as pd
 import numpy as np
 import re
 
-day = '07'
+day = '08'
 month = '05'
 year = '2021'
+
 date = month + '-' + day + '-21'
+slate = '7'
 
 # Spelling Discrepencies
 csv_name_spelling = pd.read_csv('./Spelling/name_spelling.csv')
 csv_team_abbr = pd.read_csv('./Spelling/team_abb.csv')
 
 # Import data.
-csv_dk = pd.read_csv('./Data/' + date + '/DKSalaries7t.csv')
+csv_dk = pd.read_csv('./Data/' + date + '/' + slate + '/DKSalaries.csv')
 csv_b_stats = pd.read_csv('./Data/' + date + '/br_b_stats.csv')
 csv_p_stats = pd.read_csv('./Data/' + date + '/br_p_stats.csv')
 csv_t_stats = pd.read_csv('./Data/' + date + '/br_t_stats.csv')
@@ -48,7 +50,7 @@ def batters(df):
     df_lineups_bat = df_lineups
 
     bottom_rows(df_batters)
-#
+
     df = df[['Name','Game Info','TeamAbbrev','AvgPointsPerGame']]
     df = df.rename(columns={'TeamAbbrev': 'TmAbb','AvgPointsPerGame': 'APPG'})
     df_lineups_bat = df_lineups_bat[['team','Name','b_o']]
@@ -218,7 +220,8 @@ def pitchers(df):
 
     proj_pts = (hits_allowed + innings + strike_outs + wins + comp_gm + earned_runs + walks + HBP + shut_outs)
     df['pj_pts'] = round(proj_pts, 2)
-    #
+
+
     # # Team Factors for Pitching
     df_vT.drop(df_vT.tail(2).index,inplace=True)
     name = df_p_stats['Name'].str.split('*', n=1, expand=True)
@@ -229,6 +232,7 @@ def pitchers(df):
     # pd.set_option('display.max_columns', None)
     # print(df)
 
+    # vs Team Batting
     df_vT = df_vT[['Tm','G','SO','H','R','BB']]
 
     games = df_vT['G'].sum()
