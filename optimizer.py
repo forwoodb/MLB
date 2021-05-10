@@ -2,12 +2,12 @@ from pulp import *
 import pandas as pd
 import csv
 
-day = '08'
+day = '10'
 month = '05'
 year = '2021'
 
 date = month + '-' + day + '-21'
-slate = '3a'
+slate = '6'
 
 # Spelling Discrepencies
 name_spelling = pd.read_csv('./Spelling/name_spelling.csv')

@@ -56,7 +56,7 @@ df_strat['Slate'] = contest_slates
 df_strat['Name'] = strategies
 df_strat['Points'] = scores
 
-# df_strat = df_strat.sort_values( by = ['Date','Slate','Points'], ascending = [False,False,False])
+df_strat = df_strat.sort_values( by = ['Date','Slate','Points'], ascending = [False,False,False])
 
 df_strat['Rank'] = df_strat.groupby(['Date'])['Points'].rank(pct=True)
 
