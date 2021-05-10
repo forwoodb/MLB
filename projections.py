@@ -7,7 +7,7 @@ month = '05'
 year = '2021'
 
 date = month + '-' + day + '-21'
-slate = '7'
+slate = '3a'
 
 # Spelling Discrepencies
 csv_name_spelling = pd.read_csv('./Spelling/name_spelling.csv')
@@ -163,6 +163,7 @@ def batters(df):
     # df = df[df['b_o'] != '6']
     # df = df[df['b_o'] != '5']
 
+
     df = pd.merge(df, df_vP, on='vSP', how='inner')
 
     # Adjusted Batting Projections
@@ -175,6 +176,7 @@ def batters(df):
     proj_pts_vP = proj_hits + proj_hr + proj_r + proj_bb + df['HBP'] + df['SB']
 
     df['pj_vO'] = round(proj_pts_vP, 2)
+    df = df[df['pj_vO'] > 0]
 
     # print(df)
     return df
@@ -312,7 +314,7 @@ pd.set_option('display.max_rows', None)
 # pd.set_option('display.max_columns', None)
 print(df_proj)
 
-df_proj.to_csv('./Data/' + date + '/projections.csv')
+df_proj.to_csv('./Data/' + date + '/' + slate + '/projections.csv')
 #
 # # * Two players named Will Smith produces doubles
 #

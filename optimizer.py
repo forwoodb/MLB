@@ -7,11 +7,11 @@ month = '05'
 year = '2021'
 
 date = month + '-' + day + '-21'
-slate = '7'
+slate = '3a'
 
 # Spelling Discrepencies
 name_spelling = pd.read_csv('./Spelling/name_spelling.csv')
-projections = pd.read_csv('./Data/' + date + '/projections.csv')
+projections = pd.read_csv('./Data/' + date + '/' + slate + '/projections.csv')
 
 # import csv data
 csv_dk = pd.read_csv('./Data/' + date + '/' + slate + '/DKSalaries.csv')

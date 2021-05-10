@@ -1,45 +1,63 @@
 import pandas as pd
+import os
 
 # date = '04-30-21'
-# dates = ['05-04-21']
-dates = ['05-07-21','05-04-21','05-03-21','04-30-21','04-28-21','04-24-21']
-
+# dates = ['05-08-21','05-07-21','05-04-21','05-03-21','04-30-21','04-28-21','04-24-21']
+dates = ['05-03-21']
+slates = ['14','12','10','7','7t','6','4','4n','4t','3','3a','3n','2ln']
+# slates = ['3','3a','3n','2ln']
 
 contests = []
+contest_slates = []
 
 for date in dates:
-    csv_results = pd.read_csv('./Data/' + date + '/results.csv')
+    for slate in slates:
+        date_path = './Data/' + date + '/' + slate + '/'
+        if not os.path.isdir(date_path):
+            continue
+        elif not os.path.isfile(date_path + 'results.csv'):
+            continue
+        else:
+            csv_results = pd.read_csv(date_path + 'results.csv')
+            df_results = pd.DataFrame(csv_results)
+            # df_results['Slate'].append(slate)
+            contests.append(df_results)
+            contest_slates.append(slate)
 
-    df_results = pd.DataFrame(csv_results)
-
-    contests.append(df_results)
+contests = dict(zip(contest_slates,contests))
 
 strategies = []
 scores = []
 contest_dates = []
+contest_slates = []
 
 for df in contests:
-    for col in df:
+    for col in contests[df]:
+        if 'Total' in col:
+            contest_slates.append(df)
+
+for df in contests:
+    for col in contests[df]:
         if 'Total' in col:
             strategies.append(col)
 
 for df in contests:
-    for col in df:
+    for col in contests[df]:
         if 'Total' in col:
-            scores.append(round(df[col][11], 2))
+            scores.append(round(contests[df][col][11], 2))
 
 for df in contests:
-    for col in df:
-        if pd.isnull(df[col][0]) == False and df[col][0] != 0:
-            contest_dates.append(df[col][0])
-            # print(df_results[col][0])
+    for col in contests[df]:
+        if pd.isnull(contests[df][col][0]) == False and contests[df][col][0] != 0:
+            contest_dates.append(contests[df][col][0])
 
 df_strat = pd.DataFrame()
 df_strat['Date'] = contest_dates
+df_strat['Slate'] = contest_slates
 df_strat['Name'] = strategies
 df_strat['Points'] = scores
 
-df_strat = df_strat.sort_values( by = ['Date', 'Points'], ascending = [False, False])
+df_strat = df_strat.sort_values( by = ['Date','Slate','Points'], ascending = [False,False,False])
 
 df_strat['Rank'] = df_strat.groupby(['Date'])['Points'].rank(pct=True)
 
@@ -53,23 +71,10 @@ df_points = df_strat.groupby('Name')['Points'].mean()
 df_ranks = (df_strat[df_strat['Rank'] > .5].groupby('Name')['Rank'].count())/(df_strat.groupby(['Name'])['Name'].count())
 
 df_ranks = pd.merge(df_points.to_frame(), df_ranks.to_frame(), on='Name', how='inner')
-
 df_ranks = df_ranks.sort_values(by=0, ascending=False)
-# df_points = df_points.sort_values(ascending=False)
-
 
 pd.set_option('display.max_rows', None)
 # print(df_points)
 print(df_ranks)
-
-# strats = []
-#
-# for i in strategies:
-#     if i not in strats:
-#         strats.append(i)
-#
-# df_ranks = df_strat.groupby(['Name']).sum()
-# df_ranks = df_ranks.sort_values(by=['Rank'], ascending=False)
-#
-# pd.set_option('display.max_columns', None)
-# print(df_ranks)
+print('----------')
+print('Sample Size: ' + str(len(contests)))
