@@ -2,10 +2,10 @@ import pandas as pd
 import os
 
 # date = '04-30-21'
-# dates = ['05-08-21','05-07-21','05-04-21','05-03-21','04-30-21','04-28-21','04-24-21']
-dates = ['05-03-21']
+dates = ['05-08-21','05-07-21','05-04-21','05-03-21','04-30-21','04-28-21','04-24-21']
+# dates = ['05-03-21']
 slates = ['14','12','10','7','7t','6','4','4n','4t','3','3a','3n','2ln']
-# slates = ['3','3a','3n','2ln']
+# slates = ['14']
 
 contests = []
 contest_slates = []
@@ -24,7 +24,7 @@ for date in dates:
             contests.append(df_results)
             contest_slates.append(slate)
 
-contests = dict(zip(contest_slates,contests))
+contests = tuple(zip(contest_slates,contests))
 
 strategies = []
 scores = []
@@ -32,24 +32,24 @@ contest_dates = []
 contest_slates = []
 
 for df in contests:
-    for col in contests[df]:
+    for col in df[1]:
         if 'Total' in col:
-            contest_slates.append(df)
+            contest_slates.append(df[0])
 
 for df in contests:
-    for col in contests[df]:
+    for col in df[1]:
         if 'Total' in col:
             strategies.append(col)
 
 for df in contests:
-    for col in contests[df]:
+    for col in df[1]:
         if 'Total' in col:
-            scores.append(round(contests[df][col][11], 2))
+            scores.append(round(df[1][col][11], 2))
 
 for df in contests:
-    for col in contests[df]:
-        if pd.isnull(contests[df][col][0]) == False and contests[df][col][0] != 0:
-            contest_dates.append(contests[df][col][0])
+    for col in df[1]:
+        if pd.isnull(df[1][col][0]) == False and df[1][col][0] != 0:
+            contest_dates.append(df[1][col][0])
 
 df_strat = pd.DataFrame()
 df_strat['Date'] = contest_dates
@@ -57,7 +57,7 @@ df_strat['Slate'] = contest_slates
 df_strat['Name'] = strategies
 df_strat['Points'] = scores
 
-df_strat = df_strat.sort_values( by = ['Date','Slate','Points'], ascending = [False,False,False])
+# df_strat = df_strat.sort_values( by = ['Date','Slate','Points'], ascending = [False,False,False])
 
 df_strat['Rank'] = df_strat.groupby(['Date'])['Points'].rank(pct=True)
 
