@@ -15,10 +15,13 @@ csv_team_abbr = pd.read_csv('./Spelling/team_abb.csv')
 
 # Import data.
 csv_dk = pd.read_csv('./Data/' + date + '/' + slate + '/DKSalaries.csv')
-csv_b_stats = pd.read_csv('./Data/' + date + '/br_b_stats.csv')
+csv_starting_lineups = pd.read_csv('./Data/' + date + '/Lineups_' + year + '_' + month + '_' + day + '.csv')
+# Baseball Reference
+# csv_b_stats = pd.read_csv('./Data/' + date + '/br_b_stats.csv')
 csv_p_stats = pd.read_csv('./Data/' + date + '/br_p_stats.csv')
 csv_t_stats = pd.read_csv('./Data/' + date + '/br_t_stats.csv')
-csv_starting_lineups = pd.read_csv('./Data/' + date + '/Lineups_' + year + '_' + month + '_' + day + '.csv')
+# FanGraphs
+csv_b_stats = pd.read_csv('./Data/' + date + '/fgbatters.csv')
 
 # Convert to dataframes.
 df_dk = pd.DataFrame(csv_dk)

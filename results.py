@@ -21,6 +21,7 @@ df_name_spelling = pd.DataFrame(name_spelling)
 df_lineups = pd.DataFrame(csv_lineups)
 df_stats_batter = pd.DataFrame(csv_stats_batter)
 df_stats_pitcher = pd.DataFrame(csv_stats_pitcher)
+df_stats_pitcher = df_stats_pitcher[df_stats_pitcher['Name'] != 'Will Smith']
 
 def clean_names(num):
     for item in df_lineups[num]:
@@ -92,7 +93,7 @@ df_lineups = df_lineups.reindex(df_lineups.index.drop('Lineup Type'))
 rename = dict(zip(new_df_names,new_col))
 
 new_dfs = []
-
+#
 # * created odd printout results separate from the csv file results
 for name in rename:
     name = df_totals.rename(columns={'Name': 'Name_' + rename[name],'Total': 'Total_' + rename[name]})

@@ -1,13 +1,13 @@
-,APPG,pj_vO,Name_APPG,Total_APPG,Name_pj_vO,Total_pj_vO
-0,05-08-21,05-08-21,,,,
-1,Brandon Crawford,Austin Meadows,Brandon Crawford,20.0,Austin Meadows,9.0
-2,Chris Taylor,Brandon Lowe,Chris Taylor,16.0,Brandon Lowe,19.0
-3,Jake Cronenworth,Brett Phillips,Jake Cronenworth,8.0,Brett Phillips,3.0
-4,Justin Turner,Joe Musgrove,Justin Turner,9.0,Joe Musgrove,11.85
-5,Justin Upton,Jose Iglesias,Justin Upton,0.0,Jose Iglesias,0.0
-6,Kevin Gausman,Justin Turner,Kevin Gausman,27.099999999999998,Justin Turner,9.0
-7,Matt Olson,Kevin Kiermaier,Matt Olson,4.0,Kevin Kiermaier,2.0
-8,Mike Zunino,Matt Olson,Mike Zunino,5.0,Matt Olson,4.0
-9,Trent Grisham,Mike Zunino,Trent Grisham,0.0,Mike Zunino,5.0
-10,Tyler Glasnow,Tyler Glasnow,Tyler Glasnow,24.100000000000005,Tyler Glasnow,24.100000000000005
-11,116.86,112.38,,113.2,,86.95
+,APPG,pj_vO,APPG_1-6,pj_vO_1-6,APPG_1-5,pj_vO_1-5,Name_APPG,Total_APPG,Name_pj_vO,Total_pj_vO,Name_APPG_1-6,Total_APPG_1-6,Name_pj_vO_1-6,Total_pj_vO_1-6,Name_APPG_1-5,Total_APPG_1-5,Name_pj_vO_1-5,Total_pj_vO_1-5
+0,05-08-21,05-08-21,05-08-21,05-08-21,05-08-21,05-08-21,,,,,,,,,,,,
+1,Brandon Crawford,Austin Meadows,Chris Taylor,Austin Meadows,Corey Seager,Austin Meadows,Brandon Crawford,20.0,Austin Meadows,9.0,Chris Taylor,16.0,Austin Meadows,9.0,Corey Seager,15.0,Austin Meadows,9.0
+2,Chris Taylor,Brandon Belt,Jake Cronenworth,Brandon Lowe,David Fletcher,Brandon Belt,Chris Taylor,16.0,Brandon Belt,23.0,Jake Cronenworth,8.0,Brandon Lowe,19.0,David Fletcher,3.0,Brandon Belt,23.0
+3,Jake Cronenworth,Brandon Lowe,Jose Iglesias,Joe Musgrove,Evan Longoria,Corey Seager,Jake Cronenworth,8.0,Brandon Lowe,19.0,Jose Iglesias,0.0,Joe Musgrove,11.85,Evan Longoria,7.0,Corey Seager,15.0
+4,Justin Turner,Chris Taylor,Justin Turner,Jose Iglesias,Justin Upton,David Fletcher,Justin Turner,9.0,Chris Taylor,16.0,Justin Turner,9.0,Jose Iglesias,0.0,Justin Upton,0.0,David Fletcher,3.0
+5,Justin Upton,Joe Musgrove,Justin Upton,Justin Turner,Kevin Gausman,Evan Longoria,Justin Upton,0.0,Joe Musgrove,11.85,Justin Upton,0.0,Justin Turner,9.0,Kevin Gausman,27.099999999999998,Evan Longoria,7.0
+6,Kevin Gausman,Jose Iglesias,Kevin Gausman,Justin Upton,Mark Canha,Justin Upton,Kevin Gausman,27.099999999999998,Jose Iglesias,0.0,Kevin Gausman,27.099999999999998,Justin Upton,0.0,Mark Canha,6.0,Justin Upton,0.0
+7,Matt Olson,Jose Rojas,Matt Olson,Kevin Kiermaier,Matt Olson,Kevin Gausman,Matt Olson,4.0,Jose Rojas,18.0,Matt Olson,4.0,Kevin Kiermaier,2.0,Matt Olson,4.0,Kevin Gausman,27.099999999999998
+8,Mike Zunino,Mike Zunino,Trent Grisham,Mitch Moreland,Trent Grisham,Trent Grisham,Mike Zunino,5.0,Mike Zunino,5.0,Trent Grisham,0.0,Mitch Moreland,0.0,Trent Grisham,0.0,Trent Grisham,0.0
+9,Trent Grisham,Randy Arozarena,Tyler Glasnow,Tyler Glasnow,Tyler Glasnow,Tyler Glasnow,Trent Grisham,0.0,Randy Arozarena,8.0,Tyler Glasnow,24.100000000000005,Tyler Glasnow,24.100000000000005,Tyler Glasnow,24.100000000000005,Tyler Glasnow,24.100000000000005
+10,Tyler Glasnow,Tyler Glasnow,Will Smith,Will Smith,Will Smith,Will Smith,Tyler Glasnow,24.100000000000005,Tyler Glasnow,24.100000000000005,Will Smith,14.0,Will Smith,14.0,Will Smith,14.0,Will Smith,14.0
+11,116.86,113.48,114.98,107.01000000000002,114.7,101.57,,113.2,,133.95,,102.2,,88.95,,100.2,,122.2
