@@ -1,0 +1,2 @@
+ BR stats may only be up to 28th instead of 29th
+ Re-used FG instead

@@ -1,10 +1,10 @@
 import pandas as pd
 import os
 
-dates = ['05-09-21','05-08-21','05-07-21','05-04-21','05-03-21','04-30-21','04-28-21','04-24-21']
+dates = ['05-10-21','05-09-21','05-08-21','05-07-21','05-04-21','05-03-21','04-30-21','04-28-21','04-24-21']
 # dates = ['05-03-21']
-slates = ['14','12','11','10','7','7t','6','5t','4','4n','4t','3','3a','3n','2ln']
-# slates = ['6']
+slates = ['14','12','11','10','7','7t','6','6t','5t','4','4n','4t','3','3a','3n','2ln','2t','2n']
+# slates = ['11']
 
 contests = []
 contest_slates = []
@@ -29,6 +29,8 @@ strategies = []
 scores = []
 contest_dates = []
 contest_slates = []
+
+# Put rank here:
 
 for df in contests:
     for col in df[1]:
@@ -58,7 +60,7 @@ df_strat['Points'] = scores
 
 df_strat = df_strat.sort_values( by = ['Date','Slate','Points'], ascending = [False,False,False])
 
-df_strat['Rank'] = df_strat.groupby(['Date'])['Points'].rank(pct=True)
+df_strat['Rank'] = df_strat.groupby(['Date','Slate'])['Points'].rank(pct=True)
 
 pd.set_option('display.max_rows', None)
 print(df_strat)

@@ -2,12 +2,12 @@ from pulp import *
 import pandas as pd
 import csv
 
-day = '10'
+day = '12'
 month = '05'
 year = '2021'
 
 date = month + '-' + day + '-21'
-slate = '6'
+slate = '2n'
 
 # Spelling Discrepencies
 name_spelling = pd.read_csv('./Spelling/name_spelling.csv')
@@ -242,7 +242,6 @@ availables = availables[availables[' batting order'] != '5']
 points = list(availables['pj_vO'])
 new_list = [date, 'pj_vO_1-4']
 optimize(points, new_list)
-#
 
 # APPG 1-3
 availables = availables[availables[' batting order'] != '4']

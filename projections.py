@@ -2,12 +2,12 @@ import pandas as pd
 import numpy as np
 import re
 
-day = '10'
+day = '12'
 month = '05'
 year = '2021'
 
 date = month + '-' + day + '-21'
-slate = '6'
+slate = '2n'
 
 # Spelling Discrepencies
 csv_name_spelling = pd.read_csv('./Spelling/name_spelling.csv')
@@ -23,6 +23,10 @@ csv_t_stats = pd.read_csv('./Data/' + date + '/br_t_stats.csv')
 # FanGraphs
 csv_b_stats = pd.read_csv('./Data/' + date + '/fgbatters.csv')
 
+# pd.set_option('display.max_rows', None)
+# pd.set_option('display.max_columns', None)
+# print(csv_b_stats)
+#
 # Convert to dataframes.
 df_dk = pd.DataFrame(csv_dk)
 df_b_stats = pd.DataFrame(csv_b_stats)
@@ -61,6 +65,7 @@ def batters(df):
 
     df_batters = df_batters.replace(list(df_team_abbr["BaseballReference"]), list(df_team_abbr["DraftKings"]))
     df_batters = df_batters.replace(list(df_name_spelling["BaseballReference"]), list(df_name_spelling["DraftKings"]))
+    df_batters = df_batters.replace(list(df_name_spelling["FanGraphs"]), list(df_name_spelling["DraftKings"]))
 
     # df_vP = df_vP.replace(list(df_team_abbr["BaseballReference"]), list(df_team_abbr["DraftKings"]))
     # df_vP = df_vP.replace(list(df_name_spelling["BaseballReference"]), list(df_name_spelling["DraftKings"]))
@@ -160,12 +165,6 @@ def batters(df):
 
     # Eliminate batting order positions
     df = df[df['b_o'] != 'SP']
-    # df = df[df['b_o'] != '9']
-    # df = df[df['b_o'] != '8']
-    # df = df[df['b_o'] != '7']
-    # df = df[df['b_o'] != '6']
-    # df = df[df['b_o'] != '5']
-
 
     df = pd.merge(df, df_vP, on='vSP', how='inner')
 
@@ -233,10 +232,6 @@ def pitchers(df):
     name = name[0].str.split('\\', n=1, expand=True)
     df_p_stats['Name'] = name[0]
 
-    # pd.set_option('display.max_rows', None)
-    # pd.set_option('display.max_columns', None)
-    # print(df)
-
     # vs Team Batting
     df_vT = df_vT[['Tm','G','SO','H','R','BB']]
 
@@ -253,7 +248,7 @@ def pitchers(df):
     so_g = df_vT['SO']/df_vT['G']
     so_fac = so_g/lg_so_g
     df_vT.insert(5, 'so_fac', round(so_fac, 2))
-#
+
     lg_r = df_vT['R'].sum()
     lg_r_g = lg_r/games
     r_g = df_vT['R']/df_vT['G']
@@ -314,10 +309,9 @@ df_proj = b_proj
 df_proj = df_proj.append(p_proj)
 #
 pd.set_option('display.max_rows', None)
-# pd.set_option('display.max_columns', None)
+pd.set_option('display.max_columns', None)
 print(df_proj)
 
 df_proj.to_csv('./Data/' + date + '/' + slate + '/projections.csv')
 #
 # # * Two players named Will Smith produces doubles
-#
