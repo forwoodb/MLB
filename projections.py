@@ -2,12 +2,12 @@ import pandas as pd
 import numpy as np
 import re
 
-day = '12'
+day = '14'
 month = '05'
 year = '2021'
 
 date = month + '-' + day + '-21'
-slate = '2n'
+slate = '13'
 
 # Spelling Discrepencies
 csv_name_spelling = pd.read_csv('./Spelling/name_spelling.csv')
