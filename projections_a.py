@@ -7,7 +7,7 @@ month = '05'
 year = '2021'
 
 date = month + '-' + day + '-21'
-slate = '4t'
+slate = '13'
 
 # Spelling Discrepencies
 csv_name_spelling = pd.read_csv('./Spelling/name_spelling.csv')
@@ -157,15 +157,24 @@ def batters(df):
     df_vP = df_vP.rename(columns={'Name': 'vSP'})
     df.drop(columns=['team_1','team_2'], inplace=True)
 
-    df_vP = df_vP[['vSP','h_fac','hr_fac','r_fac','bb_fac']]
     none = [{'vSP':None,'h_fac':1,'hr_fac':1,'r_fac':1,'bb_fac':1}]
     df_vP = df_vP.append(none)
+
+    sp_list = list(set(list(df['vSP'])))
+
+    df_vP = df_vP[df_vP['vSP'].isin(sp_list)]
+
+    df_vP = df_vP[['vSP','h_fac','hr_fac','r_fac','bb_fac']]
+
 
 
     # Eliminate batting order positions
     df = df[df['b_o'] != 'SP']
 
-    df = pd.merge(df, df_vP, on='vSP', how='inner')
+    # print(df_vP)
+
+    # df = pd.merge(df, df_vP, on='vSP', how='inner')
+    df = pd.merge(df, df_vP, on='vSP', how='outer').fillna(1)
 
     # Adjusted Batting Projections
     proj_hits = (df['H'] + df['2B'] + df['3B']) * df['h_fac']
@@ -300,7 +309,7 @@ def pitchers(df):
     # print(df)
     return df
 
-# batters(df_dk)
+batters(df_dk)
 b_proj = batters(df_dk)
 
 b_proj = b_proj[['team', 'Name','b_o', 'pj_vO']]

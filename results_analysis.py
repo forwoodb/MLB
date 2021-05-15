@@ -6,7 +6,6 @@ dates = ['05-14-21','05-13-21','05-12-21','05-10-21','05-09-21','05-08-21','05-0
 slates = ['14','12','13','11','10','7','7t','6','6t','5t','4','4n','4t','3','3a','3n','3ln','2ln','2t','2n']
 # slates = ['3','3a','3n','2ln','2t','2n']
 
-strategies_used = []
 
 contests = []
 contest_slates = []
@@ -32,39 +31,66 @@ scores = []
 contest_dates = []
 contest_slates = []
 
-# Put rank here:
-
-for df in contests:
-    for col in df[1]:
-        if 'Total' in col:
-            contest_slates.append(df[0])
-
-for df in contests:
-    for col in df[1]:
-        if 'Total' in col:
-            strategies.append(col)
-
-for df in contests:
-    for col in df[1]:
-        if 'Total' in col:
-            scores.append(round(df[1][col][11], 2))
+# for df in contests:
+#     for col in df[1]:
+#         if 'Total' in col:
+#             contest_slates.append(df[0])
 #
 # for df in contests:
 #     for col in df[1]:
-#         if '1-3' in col:
-#             print('true')
+#         if 'Total' in col:
+#             strategies.append(col)
+#
+# for df in contests:
+#     for col in df[1]:
+#         if 'Total' in col:
+#             scores.append(round(df[1][col][11], 2))
+# #
+# # for df in contests:
+# #     for col in df[1]:
+# #         if '1-3' in col:
+# #             print('true')
+#
+# for df in contests:
+#     for col in df[1]:
+#         # print(col)
+#         if pd.isnull(df[1][col][0]) == False and df[1][col][0] != 0:
+#             contest_dates.append(df[1][col][0])
+
+
+# Exclude Models
+xstrategies = ['1-3']
 
 for df in contests:
-    for col in df[1]:
-        # print(col)
-        if pd.isnull(df[1][col][0]) == False and df[1][col][0] != 0:
-            contest_dates.append(df[1][col][0])
+    for x in xstrategies:
+        for col in df[1]:
+            if 'Total' in col and x not in col:
+                contest_slates.append(df[0])
+
+for df in contests:
+    for x in xstrategies:
+        for col in df[1]:
+            if 'Total' in col and x not in col:
+                strategies.append(col)
+
+for df in contests:
+    for x in xstrategies:
+        for col in df[1]:
+            if 'Total' in col and x not in col:
+                scores.append(round(df[1][col][11], 2))
+
+for df in contests:
+    for x in xstrategies:
+        for col in df[1]:
+            # print(col)
+            if pd.isnull(df[1][col][0]) == False and df[1][col][0] != 0 and x not in col:
+                contest_dates.append(df[1][col][0])
 
 # print((len(contest_dates)))
 # print(len(contest_slates))
 # print(len(strategies))
 # print(len(scores))
-
+#
 df_strat = pd.DataFrame()
 df_strat['Date'] = contest_dates
 df_strat['Slate'] = contest_slates
@@ -75,8 +101,8 @@ df_strat = df_strat.sort_values( by = ['Date','Slate','Points'], ascending = [Tr
 
 df_strat['Rank'] = df_strat.groupby(['Date','Slate'])['Points'].rank(pct=True)
 
-# pd.set_option('display.max_rows', None)
-# print(df_strat)
+pd.set_option('display.max_rows', None)
+print(df_strat)
 
 df_points = df_strat.groupby('Name')['Points'].mean()
 # df_ranks = df_strat[['Name','Points']].groupby('Name')['Points'].mean()
