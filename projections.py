@@ -7,7 +7,7 @@ month = '05'
 year = '2021'
 
 date = month + '-' + day + '-21'
-slate = '13'
+slate = '4t'
 
 # Spelling Discrepencies
 csv_name_spelling = pd.read_csv('./Spelling/name_spelling.csv')
@@ -180,7 +180,9 @@ def batters(df):
     df['pj_vO'] = round(proj_pts_vP, 2)
     df = df[df['pj_vO'] > 0]
 
-    # print(df)
+    # pd.set_option('display.max_columns', None)
+    pd.set_option('display.max_rows', None)
+    print(df_vP)
     return df
 
 
@@ -298,8 +300,9 @@ def pitchers(df):
     # print(df)
     return df
 
-# pitchers(df_dk)
+# batters(df_dk)
 b_proj = batters(df_dk)
+
 b_proj = b_proj[['team', 'Name','b_o', 'pj_vO']]
 
 p_proj = pitchers(df_dk)

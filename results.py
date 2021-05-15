@@ -6,7 +6,7 @@ month = '05'
 year = '2021'
 
 date = month + '-' + day + '-21'
-slate = '13'
+slate = '4t'
 
 # Spelling Discrepencies
 name_spelling = pd.read_csv('./Spelling/name_spelling.csv')
