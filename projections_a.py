@@ -2,12 +2,12 @@ import pandas as pd
 import numpy as np
 import re
 
-day = '14'
+day = '18'
 month = '05'
 year = '2021'
 
 date = month + '-' + day + '-21'
-slate = '13'
+slate = '5n'
 
 # Spelling Discrepencies
 csv_name_spelling = pd.read_csv('./Spelling/name_spelling.csv')
@@ -22,7 +22,9 @@ csv_p_stats = pd.read_csv('./Data/' + date + '/br_p_stats.csv')
 csv_t_stats = pd.read_csv('./Data/' + date + '/br_t_stats.csv')
 # FanGraphs
 csv_b_stats = pd.read_csv('./Data/' + date + '/fgbatters.csv')
-#
+# csv_p_stats = pd.read_csv('./Data/' + date + '/fgpitchers.csv')
+# csv_t_stats = pd.read_csv('./Data/' + date + '/fgteamb.csv')
+
 # Convert to dataframes.
 df_dk = pd.DataFrame(csv_dk)
 df_b_stats = pd.DataFrame(csv_b_stats)
@@ -204,7 +206,10 @@ def pitchers(df):
     df = df[['Name','Game Info','TeamAbbrev','AvgPointsPerGame']]
     df = df.rename(columns={'TeamAbbrev': 'TmAbb','AvgPointsPerGame': 'APPG'})
     df_lineups_pitchers = df_lineups_pitchers[['team','Name','b_o']]
+    # BR
     df_pitchers = df_pitchers[['Name','G','IP','SO','W','ER','H','BB','HBP','CG','SHO']]
+    # FG
+    # df_pitchers = df_pitchers[['Name','G','IP','SO','W','ER','H','BB','HBP','CG','ShO']]
 
     df_vT = df_vT.replace(list(df_team_abbr["BaseballReference"]), list(df_team_abbr["DraftKings"]))
     df_vT = df_vT.replace(list(df_name_spelling["BaseballReference"]), list(df_name_spelling["DraftKings"]))
@@ -221,7 +226,10 @@ def pitchers(df):
     earned_runs = (df['ER'] * -2)/df['G']
     walks = (df['BB'] * -0.6)/df['G']
     HBP = (df['HBP'] * -0.6)/df['G']
+    # BR
     shut_outs = (df['SHO'] * 2.5)/df['G']
+    # FG
+    # shut_outs = (df['ShO'] * 2.5)/df['G']
 
     df['H'] = round(hits_allowed, 2)
     df['IP'] = round(innings, 2)
@@ -231,7 +239,10 @@ def pitchers(df):
     df['ER'] = round(earned_runs, 2)
     df['BB'] = round(walks, 2)
     df['HBP'] = round(HBP, 2)
+    # BR
     df['SHO'] = round(shut_outs, 2)
+    # FG
+    # df['ShO'] = round(shut_outs, 2)
 
     proj_pts = (hits_allowed + innings + strike_outs + wins + comp_gm + earned_runs + walks + HBP + shut_outs)
     df['pj_pts'] = round(proj_pts, 2)
@@ -244,7 +255,10 @@ def pitchers(df):
     df_p_stats['Name'] = name[0]
 
     # vs Team Batting
+    # BR
     df_vT = df_vT[['Tm','G','SO','H','R','BB']]
+    # FG
+    # df_vT = df_vT[['Team','G','SO','H','R','BB']]
 
     games = df_vT['G'].sum()
 
@@ -289,7 +303,10 @@ def pitchers(df):
         else:
             df['Opp'][i] = df['team_1'][i]
 
+    # BR
     df_vT = df_vT.rename(columns={'Tm': 'Opp'})
+    # FG
+    # df_vT = df_vT.rename(columns={'Team': 'Opp'})
     df.drop(columns=['team_1','team_2'], inplace=True)
 
     df_vT = df_vT[['Opp','h_fac','so_fac','r_fac','bb_fac']]
@@ -302,7 +319,10 @@ def pitchers(df):
     proj_r = df['ER'] * df['r_fac']
     proj_bb = df['BB'] * df['bb_fac']
 
+    # BR
     proj_pts_vP = proj_hits + proj_so + proj_r + proj_bb + df['HBP'] + df['IP'] + df['W'] + df['CG'] + df['SHO']
+    # FG
+    # proj_pts_vP = proj_hits + proj_so + proj_r + proj_bb + df['HBP'] + df['IP'] + df['W'] + df['CG'] + df['ShO']
 
     df['pj_vO'] = round(proj_pts_vP, 2)
 

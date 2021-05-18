@@ -3,8 +3,8 @@ import os
 
 dates = ['05-14-21','05-13-21','05-12-21','05-10-21','05-09-21','05-08-21','05-07-21','05-04-21','05-03-21','04-30-21','04-28-21','04-24-21']
 # dates = ['05-03-21']
-slates = ['14','12','13','11','10','7','7t','6','6t','5t','4','4n','4t','3','3a','3n','3ln','2ln','2t','2n']
-# slates = ['3','3a','3n','2ln','2t','2n']
+# slates = ['14','12','13','11','10','7','7t','6','6t','5t','5n','4','4n','4t','3','3a','3n','3ln','2ln','2t','2n']
+slates = ['6','6t','5t','5n','5n','4','4n','4t']
 
 
 contests = []
@@ -31,60 +31,60 @@ scores = []
 contest_dates = []
 contest_slates = []
 
-# for df in contests:
-#     for col in df[1]:
-#         if 'Total' in col:
-#             contest_slates.append(df[0])
+for df in contests:
+    for col in df[1]:
+        if 'Total' in col:
+            contest_slates.append(df[0])
+
+for df in contests:
+    for col in df[1]:
+        if 'Total' in col:
+            strategies.append(col)
+
+for df in contests:
+    for col in df[1]:
+        if 'Total' in col:
+            scores.append(round(df[1][col][11], 2))
 #
 # for df in contests:
 #     for col in df[1]:
-#         if 'Total' in col:
-#             strategies.append(col)
+#         if '1-3' in col:
+#             print('true')
+
+for df in contests:
+    for col in df[1]:
+        # print(col)
+        if pd.isnull(df[1][col][0]) == False and df[1][col][0] != 0:
+            contest_dates.append(df[1][col][0])
+
+
+# # Exclude Models
+# xstrategies = ['1-3']
 #
 # for df in contests:
-#     for col in df[1]:
-#         if 'Total' in col:
-#             scores.append(round(df[1][col][11], 2))
-# #
-# # for df in contests:
-# #     for col in df[1]:
-# #         if '1-3' in col:
-# #             print('true')
+#     for x in xstrategies:
+#         for col in df[1]:
+#             if 'Total' in col and x not in col:
+#                 contest_slates.append(df[0])
 #
 # for df in contests:
-#     for col in df[1]:
-#         # print(col)
-#         if pd.isnull(df[1][col][0]) == False and df[1][col][0] != 0:
-#             contest_dates.append(df[1][col][0])
-
-
-# Exclude Models
-xstrategies = ['1-3']
-
-for df in contests:
-    for x in xstrategies:
-        for col in df[1]:
-            if 'Total' in col and x not in col:
-                contest_slates.append(df[0])
-
-for df in contests:
-    for x in xstrategies:
-        for col in df[1]:
-            if 'Total' in col and x not in col:
-                strategies.append(col)
-
-for df in contests:
-    for x in xstrategies:
-        for col in df[1]:
-            if 'Total' in col and x not in col:
-                scores.append(round(df[1][col][11], 2))
-
-for df in contests:
-    for x in xstrategies:
-        for col in df[1]:
-            # print(col)
-            if pd.isnull(df[1][col][0]) == False and df[1][col][0] != 0 and x not in col:
-                contest_dates.append(df[1][col][0])
+#     for x in xstrategies:
+#         for col in df[1]:
+#             if 'Total' in col and x not in col:
+#                 strategies.append(col)
+#
+# for df in contests:
+#     for x in xstrategies:
+#         for col in df[1]:
+#             if 'Total' in col and x not in col:
+#                 scores.append(round(df[1][col][11], 2))
+#
+# for df in contests:
+#     for x in xstrategies:
+#         for col in df[1]:
+#             # print(col)
+#             if pd.isnull(df[1][col][0]) == False and df[1][col][0] != 0 and x not in col:
+#                 contest_dates.append(df[1][col][0])
 
 # print((len(contest_dates)))
 # print(len(contest_slates))
@@ -108,7 +108,7 @@ df_points = df_strat.groupby('Name')['Points'].mean()
 # df_ranks = df_strat[['Name','Points']].groupby('Name')['Points'].mean()
 
 # Win % Required
-df_ranks = (df_strat[df_strat['Rank'] > .5].groupby('Name')['Rank'].count())/(df_strat.groupby(['Name'])['Name'].count())
+df_ranks = (df_strat[df_strat['Rank'] > .57].groupby('Name')['Rank'].count())/(df_strat.groupby(['Name'])['Name'].count())
 
 df_ranks = pd.merge(df_points.to_frame(), df_ranks.to_frame(), on='Name', how='inner')
 df_ranks = df_ranks.sort_values(by=0, ascending=False)
