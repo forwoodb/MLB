@@ -2,12 +2,12 @@ import pandas as pd
 import numpy as np
 import re
 
-day = '18'
+day = '15'
 month = '05'
 year = '2021'
 
 date = month + '-' + day + '-21'
-slate = '14'
+slate = '2t'
 
 # Spelling Discrepencies
 csv_name_spelling = pd.read_csv('./Spelling/name_spelling.csv')
@@ -18,13 +18,13 @@ csv_dk = pd.read_csv('./Data/' + date + '/' + slate + '/DKSalaries.csv')
 csv_starting_lineups = pd.read_csv('./Data/' + date + '/Lineups_' + year + '_' + month + '_' + day + '.csv')
 # Baseball Reference
 # csv_b_stats = pd.read_csv('./Data/' + date + '/br_b_stats.csv')
-csv_p_stats = pd.read_csv('./Data/' + date + '/br_p_stats.csv')
-csv_t_stats = pd.read_csv('./Data/' + date + '/br_t_stats.csv')
+# csv_p_stats = pd.read_csv('./Data/' + date + '/br_p_stats.csv')
+# csv_t_stats = pd.read_csv('./Data/' + date + '/br_t_stats.csv')
 # FanGraphs
 csv_b_stats = pd.read_csv('./Data/' + date + '/fgbatters.csv')
-# csv_p_stats = pd.read_csv('./Data/' + date + '/fgpitchers.csv')
-# csv_t_stats = pd.read_csv('./Data/' + date + '/fgteamb.csv')
-#
+csv_p_stats = pd.read_csv('./Data/' + date + '/fgpitchers.csv')
+csv_t_stats = pd.read_csv('./Data/' + date + '/fgteamb.csv')
+
 # Convert to dataframes.
 df_dk = pd.DataFrame(csv_dk)
 df_b_stats = pd.DataFrame(csv_b_stats)
@@ -194,9 +194,9 @@ def pitchers(df):
     df = df.rename(columns={'TeamAbbrev': 'TmAbb','AvgPointsPerGame': 'APPG'})
     df_lineups_pitchers = df_lineups_pitchers[['team','Name','b_o']]
     # BR
-    df_pitchers = df_pitchers[['Name','G','IP','SO','W','ER','H','BB','HBP','CG','SHO']]
+    # df_pitchers = df_pitchers[['Name','G','IP','SO','W','ER','H','BB','HBP','CG','SHO']]
     # FG
-    # df_pitchers = df_pitchers[['Name','G','IP','SO','W','ER','H','BB','HBP','CG','ShO']]
+    df_pitchers = df_pitchers[['Name','G','IP','SO','W','ER','H','BB','HBP','CG','ShO']]
 
     df_vT = df_vT.replace(list(df_team_abbr["BaseballReference"]), list(df_team_abbr["DraftKings"]))
     df_vT = df_vT.replace(list(df_name_spelling["BaseballReference"]), list(df_name_spelling["DraftKings"]))
@@ -214,9 +214,9 @@ def pitchers(df):
     walks = (df['BB'] * -0.6)/df['G']
     HBP = (df['HBP'] * -0.6)/df['G']
     # BR
-    shut_outs = (df['SHO'] * 2.5)/df['G']
+    # shut_outs = (df['SHO'] * 2.5)/df['G']
     #FG
-    # shut_outs = (df['ShO'] * 2.5)/df['G']
+    shut_outs = (df['ShO'] * 2.5)/df['G']
 
     df['H'] = round(hits_allowed, 2)
     df['IP'] = round(innings, 2)
@@ -243,9 +243,9 @@ def pitchers(df):
 
     # vs Team Batting
     # BR
-    df_vT = df_vT[['Tm','G','SO','H','R','BB']]
+    # df_vT = df_vT[['Tm','G','SO','H','R','BB']]
     # FG
-    # df_vT = df_vT[['Team','G','SO','H','R','BB']]
+    df_vT = df_vT[['Team','G','SO','H','R','BB']]
 
     games = df_vT['G'].sum()
 
@@ -291,9 +291,9 @@ def pitchers(df):
             df['Opp'][i] = df['team_1'][i]
 
     # BR
-    df_vT = df_vT.rename(columns={'Tm': 'Opp'})
+    # df_vT = df_vT.rename(columns={'Tm': 'Opp'})
     # FG
-    # df_vT = df_vT.rename(columns={'Team': 'Opp'})
+    df_vT = df_vT.rename(columns={'Team': 'Opp'})
 
     df.drop(columns=['team_1','team_2'], inplace=True)
 
@@ -308,9 +308,9 @@ def pitchers(df):
     proj_bb = df['BB'] * df['bb_fac']
 
     # BR
-    proj_pts_vP = proj_hits + proj_so + proj_r + proj_bb + df['HBP'] + df['IP'] + df['W'] + df['CG'] + df['SHO']
+    # proj_pts_vP = proj_hits + proj_so + proj_r + proj_bb + df['HBP'] + df['IP'] + df['W'] + df['CG'] + df['SHO']
     # FG
-    # proj_pts_vP = proj_hits + proj_so + proj_r + proj_bb + df['HBP'] + df['IP'] + df['W'] + df['CG'] + df['ShO']
+    proj_pts_vP = proj_hits + proj_so + proj_r + proj_bb + df['HBP'] + df['IP'] + df['W'] + df['CG'] + df['ShO']
 
     df['pj_vO'] = round(proj_pts_vP, 2)
 

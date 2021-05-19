@@ -1,12 +1,12 @@
 # check out the collections library
 import pandas as pd
 
-day = '18'
+day = '15'
 month = '05'
 year = '2021'
 
 date = month + '-' + day + '-21'
-slate = '5n'
+slate = '2t'
 
 # Spelling Discrepencies
 name_spelling = pd.read_csv('./Spelling/name_spelling.csv')
@@ -72,8 +72,6 @@ df_totals = df_totals.append(df_stats_pitcher[['Name', 'Total']])
 df_totals = df_totals.replace(list(df_name_spelling["FanGraphs"]), list(df_name_spelling["DraftKings"]))
 df_totals = df_totals.replace(list(df_name_spelling["FanGraphs"]), list(df_name_spelling["DraftKings"]))
 
-# * Use loops from results analysis
-
 new_col = []
 new_df_names = []
 
@@ -93,7 +91,7 @@ df_lineups = df_lineups.reindex(df_lineups.index.drop('Lineup Type'))
 rename = dict(zip(new_df_names,new_col))
 
 new_dfs = []
-#
+
 # * created odd printout results separate from the csv file results
 for name in rename:
     name = df_totals.rename(columns={'Name': 'Name_' + rename[name],'Total': 'Total_' + rename[name]})
