@@ -1,7 +1,31 @@
-DraftKings,BaseballMonster,BaseballReference
-CWS,CHW,CHW
-SD,SD,SDP
-SF,SF,SFG
-WAS,WAS,WSN
-TB,TB,TBR
-KC,KC,KCR
+DraftKings,BaseballMonster,BaseballReference,BallParksESPN
+ARI,,,"Chase Field(Phoenix, Arizona)"
+ATL,,,"Truist Park(Cumberland, GA)"
+BAL,,,"Oriole Park at Camden Yards(Baltimore, Maryland)"
+BOS,,,"Fenway Park(Boston, Massachusetts)"
+CIN,,,"Great American Ball Park(Cincinnati, Ohio)"
+CLE,,,"Progressive Field(Cleveland, Ohio)"
+COL,,,"Coors Field(Denver, Colorado)"
+CHC,,,"Wrigley Field(Chicago, Illinois)"
+CWS,CHW,CHW,"Guaranteed Rate Field(Chicago, Illinois)"
+DET,,,"Comerica Park(Detroit, Michigan)"
+HOU,,,"Minute Maid Park(Houston, Texas)"
+KC,KC,KCR,"Kauffman Stadium(Kansas City, Missouri)"
+LAA,,,"Angel Stadium(Anaheim, California)"
+LAD,,,"Dodger Stadium(Los Angeles, California)"
+MIA,,,"Marlins Park(Miami, Florida)"
+MIL,,,"Miller Park(Milwaukee, Wisconsin)"
+MIN,,,"Target Field(Minneapolis, Minnesota)"
+NYM,,,"Citi Field(New York, New York)"
+NYY,,,"Yankee Stadium(New York, New York)"
+OAK,,,"Oakland Coliseum(Oakland, California)"
+PHI,,,"Citizens Bank Park(Philadelphia, Pennsylvania)"
+PIT,,,"PNC Park(Pittsburgh, Pennsylvania)"
+SD,SD,SDP,"Petco Park(San Diego, California)"
+SEA,,,"T-Mobile Park(Seattle, Washington)"
+SF,SF,SFG,"Oracle Park(San Francisco, California)"
+STL,,,"Busch Stadium(St. Louis, Missouri)"
+TEX,,,"Globe Life Field(Arlington, Texas)"
+TOR,,,"Rogers Centre(Toronto, Ontario)"
+TB,TB,TBR,"Tropicana Field(St. Petersburg, Florida)"
+WAS,WAS,WSN,"Nationals Park(Washington, D.C.)"

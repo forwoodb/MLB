@@ -25,6 +25,9 @@ csv_b_stats = pd.read_csv('./Data/' + date + '/fgbatters.csv')
 # csv_p_stats = pd.read_csv('./Data/' + date + '/fgpitchers.csv')
 # csv_t_stats = pd.read_csv('./Data/' + date + '/fgteamb.csv')
 
+# Park Factor
+csv_bp_stats = pd.read_csv('./DKMLB Park Factor - Average.csv')
+
 # Convert to dataframes.
 df_dk = pd.DataFrame(csv_dk)
 df_b_stats = pd.DataFrame(csv_b_stats)
@@ -33,6 +36,7 @@ df_t_stats = pd.DataFrame(csv_t_stats)
 df_lineups = pd.DataFrame(csv_starting_lineups)
 df_name_spelling = pd.DataFrame(csv_name_spelling)
 df_team_abbr = pd.DataFrame(csv_team_abbr)
+df_bp_stats = pd.DataFrame(csv_bp_stats)
 
 # Clean up lineup data.
 df_lineups = df_lineups.rename(columns={' player name': 'Name'})
@@ -52,6 +56,7 @@ def batters(df):
     df = df_dk
     df_batters = df_b_stats
     df_vP = df_p_stats
+    df_vBP = df_bp_stats
     df_lineups_bat = df_lineups
 
     bottom_rows(df_batters)
@@ -128,20 +133,20 @@ def batters(df):
 
     #Starting Pitcher Stats
     game_info = df['Game Info'].str.split('@', n=1, expand=True)
-    df['team_1'] = game_info[0]
-    df['team_2'] = game_info[1]
+    df['Away'] = game_info[0]
+    df['Home'] = game_info[1]
 
-    team_2 = df['team_2'].str.split(' ', n=1, expand=True)
-    df['team_2'] = team_2[0]
+    Home = df['Home'].str.split(' ', n=1, expand=True)
+    df['Home'] = Home[0]
     df.drop(columns=['Game Info'], inplace=True)
 
     df['Opp'] = None
 
     for i in df.index:
-        if df['TmAbb'][i] == df['team_1'][i]:
-            df['Opp'][i] = df['team_2'][i]
+        if df['TmAbb'][i] == df['Away'][i]:
+            df['Opp'][i] = df['Home'][i]
         else:
-            df['Opp'][i] = df['team_1'][i]
+            df['Opp'][i] = df['Away'][i]
 
     starting_pitchers = {}
     for pos in df_lineups_bat['b_o'].unique():
@@ -156,21 +161,39 @@ def batters(df):
             if df['Opp'][i] == j:
                 df['vSP'][i] = starting_pitchers[j]
 
+
     df_vP = df_vP.rename(columns={'Name': 'vSP'})
-    df.drop(columns=['team_1','team_2'], inplace=True)
+    # df.drop(columns=['Away','Home'], inplace=True)
+
+    none = [{'vSP':None,'h_fac':1,'hr_fac':1,'r_fac':1,'bb_fac':1}]
+    df_vP = df_vP.append(none)
+
+    sp_list = list(set(list(df['vSP'])))
+
+    df_vP = df_vP[df_vP['vSP'].isin(sp_list)]
 
     df_vP = df_vP[['vSP','h_fac','hr_fac','r_fac','bb_fac']]
+
+    # # Ballpark Factors for Batting
+    df_vBP = df_vBP[['PARK NAME','RUNS','HR','H','2B','3B','BB']]
+
+    # Ballpark Stats
+
+    df_vBP = df_vBP.replace(list(df_team_abbr["BallParksESPN"]), list(df_team_abbr["DraftKings"]))
+    df_vBP = df_vBP.rename(columns={'PARK NAME': 'Home','RUNS': 'R_FAC','HR': 'HR_FAC','H': 'H_FAC','2B': '2B_FAC','3B': '3B_FAC','BB': 'BB_FAC'})
 
     # Eliminate batting order positions
     df = df[df['b_o'] != 'SP']
 
-    df = pd.merge(df, df_vP, on='vSP', how='inner')
+    # df = pd.merge(df, df_vP, on='vSP', how='inner')
+    df = pd.merge(df, df_vP, on='vSP', how='outer').fillna(1)
+    df = pd.merge(df, df_vBP, on='Home', how='inner')
 
-    # Adjusted Batting Projections
-    proj_hits = (df['H'] + df['2B'] + df['3B']) * df['h_fac']
-    proj_hr = df['HR'] * df['hr_fac']
-    proj_r = (df['R'] + df['RBI']) * df['r_fac']
-    proj_bb = df['BB'] * df['bb_fac']
+    # # Adjusted Batting Projections
+    proj_hits = (df['H'] + df['2B'] + df['3B']) * df['h_fac']  * df['H_FAC']
+    proj_hr = df['HR'] * df['hr_fac']  * df['HR_FAC']
+    proj_r = (df['R'] + df['RBI']) * df['r_fac']  * df['R_FAC']
+    proj_bb = df['BB'] * df['bb_fac'] * df['BB_FAC']
 
     # * check total hits vs individual 1B, 2B, 3B
     proj_pts_vP = proj_hits + proj_hr + proj_r + proj_bb + df['HBP'] + df['SB']
@@ -178,9 +201,10 @@ def batters(df):
     df['pj_vO'] = round(proj_pts_vP, 2)
     df = df[df['pj_vO'] > 0]
 
-    # # pd.set_option('display.max_columns', None)
+    # # # # pd.set_option('display.max_columns', None)
     # pd.set_option('display.max_rows', None)
-    # print(df_vP)
+    # print(df)
+    #
     return df
 
 
@@ -188,6 +212,7 @@ def pitchers(df):
     df = df_dk
     df_pitchers = df_p_stats
     df_vT = df_t_stats
+    df_vBP = df_bp_stats
     df_lineups_pitchers = df_lineups
 
     df = df[['Name','Game Info','TeamAbbrev','AvgPointsPerGame']]
@@ -215,7 +240,7 @@ def pitchers(df):
     HBP = (df['HBP'] * -0.6)/df['G']
     # BR
     shut_outs = (df['SHO'] * 2.5)/df['G']
-    #FG
+    # FG
     # shut_outs = (df['ShO'] * 2.5)/df['G']
 
     df['H'] = round(hits_allowed, 2)
@@ -275,37 +300,42 @@ def pitchers(df):
 
     #Starting Pitcher Stats
     game_info = df['Game Info'].str.split('@', n=1, expand=True)
-    df['team_1'] = game_info[0]
-    df['team_2'] = game_info[1]
+    df['Away'] = game_info[0]
+    df['Home'] = game_info[1]
     #
-    team_2 = df['team_2'].str.split(' ', n=1, expand=True)
-    df['team_2'] = team_2[0]
+    Home = df['Home'].str.split(' ', n=1, expand=True)
+    df['Home'] = Home[0]
     df.drop(columns=['Game Info'], inplace=True)
 
     df['Opp'] = None
 
     for i in df.index:
-        if df['TmAbb'][i] == df['team_1'][i]:
-            df['Opp'][i] = df['team_2'][i]
+        if df['TmAbb'][i] == df['Away'][i]:
+            df['Opp'][i] = df['Home'][i]
         else:
-            df['Opp'][i] = df['team_1'][i]
+            df['Opp'][i] = df['Away'][i]
 
     # BR
     df_vT = df_vT.rename(columns={'Tm': 'Opp'})
     # FG
     # df_vT = df_vT.rename(columns={'Team': 'Opp'})
 
-    df.drop(columns=['team_1','team_2'], inplace=True)
+    # df.drop(columns=['Away','Home'], inplace=True)
 
     df_vT = df_vT[['Opp','h_fac','so_fac','r_fac','bb_fac']]
     df = df[df['b_o'] == 'SP']
     df = pd.merge(df, df_vT, on='Opp', how='inner')
 
+    # vs Ballpark
+    df_vBP = df_vBP.replace(list(df_team_abbr["BallParksESPN"]), list(df_team_abbr["DraftKings"]))
+    df_vBP = df_vBP.rename(columns={'PARK NAME': 'Home','RUNS': 'R_FAC','HR': 'HR_FAC','H': 'H_FAC','2B': '2B_FAC','3B': '3B_FAC','BB': 'BB_FAC'})
+    df = pd.merge(df, df_vBP, on='Home', how='inner')
+
     # Adjusted Pitching Projections
-    proj_hits = df['H'] * df['h_fac']
+    proj_hits = df['H'] * df['h_fac'] * df['H_FAC']
     proj_so = df['SO'] * df['so_fac']
-    proj_r = df['ER'] * df['r_fac']
-    proj_bb = df['BB'] * df['bb_fac']
+    proj_r = df['ER'] * df['r_fac'] * df['R_FAC']
+    proj_bb = df['BB'] * df['bb_fac'] * df['BB_FAC']
 
     # BR
     proj_pts_vP = proj_hits + proj_so + proj_r + proj_bb + df['HBP'] + df['IP'] + df['W'] + df['CG'] + df['SHO']
@@ -332,6 +362,6 @@ pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
 print(df_proj)
 
-df_proj.to_csv('./Data/' + date + '/' + slate + '/projections.csv')
+df_proj.to_csv('./Data/' + date + '/' + slate + '/projections_a_b.csv')
 #
 # # * Two players named Will Smith produces doubles

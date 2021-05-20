@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 
-dates = ['05-15-21','05-14-21','05-13-21','05-12-21','05-10-21','05-09-21','05-08-21','05-07-21','05-04-21','05-03-21','04-30-21','04-28-21','04-24-21']
+dates = ['05-18-21','05-16-21','05-15-21','05-14-21','05-13-21','05-12-21','05-10-21','05-09-21','05-08-21','05-07-21','05-04-21','05-03-21','04-30-21','04-28-21','04-24-21']
 # dates = ['05-03-21']
 slates = ['14','12','13','11','10','7','7t','6','6t','5n','5t','4','4n','4t','3','3a','3e','3ln','3n','3t','2ln','2n','2t']
 # slates = ['14','12','13','11','10']
@@ -32,7 +32,7 @@ contest_dates = []
 contest_slates = []
 
 xstrategies = []
-# xstrategies = ['Total_pj_vO_1-3','pj_vO_1-3' ]
+# xstrategies = ['Total_pj_vO_1-3','pj_vO_1-3','Total_pj_vOa_1-3', 'pj_vOa_1-3', 'Total_APPG_1-3', 'APPG_1-3', 'Total_pj_vO_1-5', 'pj_vO_1-5']
 
 for df in contests:
     for col in df[1]:
@@ -53,42 +53,6 @@ for df in contests:
     for col in df[1]:
         if pd.isnull(df[1][col][0]) == False and df[1][col][0] != 0 and col not in xstrategies:
             contest_dates.append(df[1][col][0])
-
-
-# # Exclude Models
-# xstrategies = ['APPGa','APPG','pj_vO','pj_vOa','APPGa_1-6','APPG_1-6','pj_vO_1-6','pj_vOa_1-6','APPGa_1-5','APPG_1-5','pj_vO_1-5','pj_vOa_1-5','APPGa_1-4','APPG_1-4','pj_vO_1-4','pj_vOa_1-4','APPGa_1-3','APPG_1-3','pj_vO_1-3','pj_vOa_1-3']
-
-# xstrategies = ['pj_vO_1-3','pj_vOa_1-3']
-
-# for df in contests:
-#     for x in xstrategies:
-#         for col in df[1]:
-#             if 'Total' in col and x not in col:
-#                 contest_slates.append(df[0])
-#
-# for df in contests:
-#     for x in xstrategies:
-#         for col in df[1]:
-#             if 'Total' in col and x not in col:
-#                 strategies.append(col)
-#
-# for df in contests:
-#     for x in xstrategies:
-#         for col in df[1]:
-#             if 'Total' in col and x not in col:
-#                 scores.append(round(df[1][col][11], 2))
-#
-# for df in contests:
-#     for x in xstrategies:
-#         for col in df[1]:
-#             if pd.isnull(df[1][col][0]) == False and df[1][col][0] != 0 and x not in col:
-#                 contest_dates.append(df[1][col][0])
-
-# print((len(contest_dates)))
-# # print(contest_dates)
-# print(len(contest_slates))
-# print(len(strategies))
-# print(len(scores))
 
 df_strat = pd.DataFrame()
 df_strat['Date'] = contest_dates
