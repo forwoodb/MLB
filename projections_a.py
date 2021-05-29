@@ -2,12 +2,12 @@ import pandas as pd
 import numpy as np
 import re
 
-day = '07'
-month = '05'
+day = '24'
+month = '04'
 year = '2021'
 
 date = month + '-' + day + '-21'
-slate = '14'
+slate = '6'
 
 # Spelling Discrepencies
 csv_name_spelling = pd.read_csv('./Spelling/name_spelling.csv')
@@ -240,9 +240,9 @@ def pitchers(df):
     df['BB'] = round(walks, 2)
     df['HBP'] = round(HBP, 2)
     # BR
-    # df['SHO'] = round(shut_outs, 2)
+    df['SHO'] = round(shut_outs, 2)
     # FG
-    df['ShO'] = round(shut_outs, 2)
+    # df['ShO'] = round(shut_outs, 2)
 
     proj_pts = (hits_allowed + innings + strike_outs + wins + comp_gm + earned_runs + walks + HBP + shut_outs)
     df['pj_pts'] = round(proj_pts, 2)

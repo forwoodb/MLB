@@ -68,22 +68,31 @@
 66,TOR,Lourdes Gurriel Jr.,6,8.29
 67,TOR,Cavan Biggio,7,9.18
 68,TOR,Danny Jansen,8,5.63
-69,STL,Tommy Edman,1,4.35
-70,STL,Dylan Carlson,2,3.96
-71,STL,Paul Goldschmidt,3,3.87
-72,STL,Nolan Arenado,4,4.2
-73,STL,Paul DeJong,5,3.5
-74,STL,Yadier Molina,6,4.22
-75,STL,Tyler O'Neill,7,3.83
-76,STL,Harrison Bader,8,4.45
-77,MIL,Kolten Wong,1,6.86
-78,MIL,Lorenzo Cain,2,6.26
-79,MIL,Daniel Vogelbach,3,3.38
-80,MIL,Travis Shaw,4,5.95
-81,MIL,Avisail Garcia,5,6.44
-82,MIL,Jackie Bradley Jr.,6,4.42
-83,MIL,Luis Urias,7,5.47
-84,MIL,Manny Pina,8,3.87
+69,ATL,Ronald Acuna Jr.,1,10.69
+70,ATL,Freddie Freeman,2,7.07
+71,ATL,Marcell Ozuna,3,5.63
+72,ATL,Ozzie Albies,4,7.16
+73,ATL,Austin Riley,5,5.55
+74,ATL,Dansby Swanson,6,5.43
+75,ATL,William Contreras,7,6.09
+76,ATL,Cristian Pache,8,2.8
+77,LAD,Will Smith,5,6.66
+78,STL,Tommy Edman,1,4.35
+79,STL,Dylan Carlson,2,3.96
+80,STL,Paul Goldschmidt,3,3.87
+81,STL,Nolan Arenado,4,4.2
+82,STL,Paul DeJong,5,3.5
+83,STL,Yadier Molina,6,4.22
+84,STL,Tyler O'Neill,7,3.83
+85,STL,Harrison Bader,8,4.45
+86,MIL,Kolten Wong,1,6.86
+87,MIL,Lorenzo Cain,2,6.26
+88,MIL,Daniel Vogelbach,3,3.38
+89,MIL,Travis Shaw,4,5.95
+90,MIL,Avisail Garcia,5,6.44
+91,MIL,Jackie Bradley Jr.,6,4.42
+92,MIL,Luis Urias,7,5.47
+93,MIL,Manny Pina,8,3.87
 0,PHI,Zack Wheeler,SP,23.17
 1,WAS,Jon Lester,SP,11.32
 2,BOS,Eduardo Rodriguez,SP,18.56
@@ -91,6 +100,7 @@
 4,TB,Collin McHugh,SP,3.27
 5,KC,Danny Duffy,SP,26.52
 6,DET,Casey Mize,SP,10.31
-7,ATL,Max Fried,SP,5.6
-8,STL,John Gant,SP,14.86
-9,MIL,Brandon Woodruff,SP,22.72
+7,TOR,Hyun Jin Ryu,SP,15.99
+8,ATL,Max Fried,SP,5.6
+9,STL,John Gant,SP,14.86
+10,MIL,Brandon Woodruff,SP,22.72

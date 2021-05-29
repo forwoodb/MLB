@@ -1,0 +1,68 @@
+Rank,EntryId,EntryName,TimeRemaining,Points,Lineup,,Player,Roster Position,%Drafted,FPTS
+1,2684726924,Robsmack,0,154.5,P Julio Ur?as P Blake Snell SS Bo Bichette 2B Brandon Lowe OF Randy Arozarena OF Austin Meadows 1B Ji-Man Choi OF Lourdes Gurriel Jr. 3B Santiago Espinal C Eric Haase,,Blake Snell,P,50.00%,29.9
+2,2684631591,tremor23,0,153.65,P Zack Wheeler P Blake Snell C Gary S?nchez 2B Brandon Lowe OF Randy Arozarena OF Austin Meadows 1B Yandy D?az SS Willy Adames 3B Miguel And?jar OF Brett Gardner,,Lance Lynn,P,30.00%,9.9
+3,2684667769,heaffer,0,131.8,P Lance Lynn P Blake Snell 2B DJ LeMahieu SS Tim Anderson 1B Matt Olson OF Austin Meadows OF Jarred Kelenic C Tom?s Nido 3B Miguel And?jar OF Brett Gardner,,Ronald Acu?a Jr.,OF,30.00%,2
+4,2684079760,boomcats,0,128.6,P Blake Snell OF Ronald Acu?a Jr. 3B Manny Machado OF Ram?n Laureano SS Francisco Lindor OF Trent Grisham C William Contreras 2B Jake Cronenworth 1B Ji-Man Choi P Kris Bubic,,Manny Machado,3B,30.00%,0
+5,2684683882,Suarez12,0,109.95,P Brandon Woodruff P Blake Snell OF Ronald Acu?a Jr. 1B Freddie Freeman C William Contreras 3B Austin Riley OF Jarred Kelenic OF Brett Gardner SS Ha-Seong Kim 2B Rougned Odor,,Trent Grisham,OF,30.00%,0
+6,2684695037,logcabinva,0,103.9,P Zack Wheeler P JT Brubaker OF Juan Soto 3B Anthony Rendon OF Teoscar Hern?ndez OF Cedric Mullins 1B Matt Olson SS Freddy Galvis 2B Nick Maton C Andrew Knapp,,Austin Meadows,OF,30.00%,27
+7,2684633353,nate_b_41,0,92.8,P Lance Lynn P Cristian Javier 3B Alex Bregman OF Yordan Alvarez 1B Nate Lowe OF Joey Gallo SS Isiah Kiner-Falefa 2B Gavin Lux OF Myles Straw C Jonah Heim,,Ji-Man Choi,1B,30.00%,18
+8,2684710499,Akimboslice22,0,84.75,P Julio Ur?as P JT Brubaker 3B Manny Machado C Will Smith OF Chris Taylor OF Trent Grisham 2B Jake Cronenworth SS Isiah Kiner-Falefa OF Matt Beaty 1B Albert Pujols,,Brett Gardner,OF,30.00%,7
+9,2684622667,xxxStrat9xxx,0,74.95,P Brandon Woodruff P Lance Lynn 3B Kyle Seager OF Trent Grisham 2B Adam Frazier C Yadier Molina 1B Ji-Man Choi OF Austin Hays OF Adolis Garc?a SS J.P. Crawford,,Brandon Woodruff,P,20.00%,19.05
+10,2684236881,EVERBACK,0,69.6,OF Ronald Acu?a Jr. OF Mike Trout 1B Freddie Freeman 3B Manny Machado C Gary S?nchez 2B Jed Lowrie SS Fernando Tatis Jr. OF Phillip Evans P Kris Bubic P Tucker Davidson,,Zack Wheeler,P,20.00%,32.75
+,,,,,,,Julio Ur?as,P,20.00%,30.6
+,,,,,,,JT Brubaker,P,20.00%,2.15
+,,,,,,,Freddie Freeman,1B,20.00%,16
+,,,,,,,Gary S?nchez,C,20.00%,9
+,,,,,,,Brandon Lowe,2B,20.00%,8
+,,,,,,,Randy Arozarena,OF,20.00%,9
+,,,,,,,William Contreras,C,20.00%,2
+,,,,,,,Matt Olson,1B,20.00%,14
+,,,,,,,Jake Cronenworth,2B,20.00%,13
+,,,,,,,Isiah Kiner-Falefa,SS,20.00%,0
+,,,,,,,Jarred Kelenic,OF,20.00%,7
+,,,,,,,Miguel And?jar,3B,20.00%,12
+,,,,,,,Kris Bubic,P,20.00%,19.7
+,,,,,,,Cristian Javier,P,10.00%,21.9
+,,,,,,,Mike Trout,OF,10.00%,0
+,,,,,,,Juan Soto,OF,10.00%,8
+,,,,,,,Alex Bregman,3B,10.00%,8
+,,,,,,,DJ LeMahieu,2B,10.00%,11
+,,,,,,,Bo Bichette,SS,10.00%,11
+,,,,,,,Tim Anderson,SS,10.00%,0
+,,,,,,,Yordan Alvarez,OF,10.00%,9
+,,,,,,,Anthony Rendon,3B,10.00%,5
+,,,,,,,Will Smith,C,10.00%,12
+,,,,,,,Ram?n Laureano,OF,10.00%,34
+,,,,,,,Francisco Lindor,SS,10.00%,10
+,,,,,,,Chris Taylor,OF,10.00%,23
+,,,,,,,Jed Lowrie,2B,10.00%,9
+,,,,,,,Teoscar Hern?ndez,OF,10.00%,15
+,,,,,,,Cedric Mullins,OF,10.00%,5
+,,,,,,,Kyle Seager,3B,10.00%,0
+,,,,,,,Adam Frazier,2B,10.00%,3
+,,,,,,,Yadier Molina,C,10.00%,6
+,,,,,,,Nate Lowe,1B,10.00%,6
+,,,,,,,Joey Gallo,OF,10.00%,2
+,,,,,,,Austin Riley,3B,10.00%,14
+,,,,,,,Austin Hays,OF,10.00%,7
+,,,,,,,Adolis Garc?a,OF,10.00%,12
+,,,,,,,Freddy Galvis,SS,10.00%,6
+,,,,,,,Gavin Lux,2B,10.00%,23
+,,,,,,,Matt Beaty,OF,10.00%,0
+,,,,,,,Yandy D?az,1B,10.00%,10
+,,,,,,,Willy Adames,SS,10.00%,9
+,,,,,,,J.P. Crawford,SS,10.00%,0
+,,,,,,,Lourdes Gurriel Jr.,OF,10.00%,15
+,,,,,,,Tom?s Nido,C,10.00%,14
+,,,,,,,Santiago Espinal,3B,10.00%,3
+,,,,,,,Eric Haase,C,10.00%,3
+,,,,,,,Myles Straw,OF,10.00%,6
+,,,,,,,Jonah Heim,C,10.00%,7
+,,,,,,,Nick Maton,2B,10.00%,9
+,,,,,,,Andrew Knapp,C,10.00%,7
+,,,,,,,Ha-Seong Kim,SS,10.00%,5
+,,,,,,,Fernando Tatis Jr.,SS,10.00%,0
+,,,,,,,Rougned Odor,2B,10.00%,8
+,,,,,,,Phillip Evans,OF,10.00%,0
+,,,,,,,Albert Pujols,1B,10.00%,4
+,,,,,,,Tucker Davidson,P,10.00%,13.9

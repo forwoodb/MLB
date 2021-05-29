@@ -1,13 +1,13 @@
-,APPG,pj_vO,APPGa,pj_vOa,Name_APPG,Total_APPG,Name_pj_vO,Total_pj_vO,Name_APPGa,Total_APPGa,Name_pj_vOa,Total_pj_vOa
-0,05-04-21,05-04-21,05-04-21,05-04-21,,,,,,,,
-1,Adam Frazier,Eric Hosmer,Adam Frazier,Eric Hosmer,Adam Frazier,9.0,Eric Hosmer,0.0,Adam Frazier,9.0,Eric Hosmer,0.0
-2,Austin Hays,Freddy Galvis,Austin Hays,Freddy Galvis,Austin Hays,0.0,Freddy Galvis,7.0,Austin Hays,0.0,Freddy Galvis,7.0
-3,Cedric Mullins,Jacob Stallings,Cedric Mullins,Jacob Stallings,Cedric Mullins,7.0,Jacob Stallings,4.0,Cedric Mullins,7.0,Jacob Stallings,4.0
-4,Dinelson Lamet,Jake Cronenworth,Dinelson Lamet,Jake Cronenworth,Dinelson Lamet,2.1,Jake Cronenworth,3.0,Dinelson Lamet,2.1,Jake Cronenworth,3.0
-5,Eric Hosmer,Jorge Lopez,Eric Hosmer,Jorge Lopez,Eric Hosmer,0.0,Jorge Lopez,12.450000000000003,Eric Hosmer,0.0,Jorge Lopez,12.450000000000003
-6,Freddy Galvis,Justin Dunn,Freddy Galvis,Justin Dunn,Freddy Galvis,7.0,Justin Dunn,17.275000000000002,Freddy Galvis,7.0,Justin Dunn,17.275000000000002
-7,Jacob Stallings,Manny Machado,Jacob Stallings,Manny Machado,Jacob Stallings,4.0,Manny Machado,2.0,Jacob Stallings,4.0,Manny Machado,2.0
-8,Justin Dunn,Mitch Haniger,Justin Dunn,Mitch Haniger,Justin Dunn,17.275000000000002,Mitch Haniger,4.0,Justin Dunn,17.275000000000002,Mitch Haniger,4.0
-9,Manny Machado,Trent Grisham,Manny Machado,Trent Grisham,Manny Machado,2.0,Trent Grisham,8.0,Manny Machado,2.0,Trent Grisham,8.0
-10,Mitch Haniger,Wil Myers,Mitch Haniger,Wil Myers,Mitch Haniger,4.0,Wil Myers,5.0,Mitch Haniger,4.0,Wil Myers,5.0
-11,85.92999999999998,96.29,85.92999999999998,96.43,,52.375,,62.72500000000001,,52.375,,62.72500000000001
+,APPGa,APPG,pj_vO,pj_vOa,pj_vOab,Name_APPGa,Total_APPGa,Name_APPG,Total_APPG,Name_pj_vO,Total_pj_vO,Name_pj_vOa,Total_pj_vOa,Name_pj_vOab,Total_pj_vOab
+0,05-04-21,05-04-21,05-04-21,05-04-21,05-04-21,,,,,,,,,,
+1,Adam Frazier,Adam Frazier,Eric Hosmer,Eric Hosmer,Eric Hosmer,Adam Frazier,9.0,Adam Frazier,9.0,Eric Hosmer,0.0,Eric Hosmer,0.0,Eric Hosmer,0.0
+2,Austin Hays,Austin Hays,Freddy Galvis,Freddy Galvis,Freddy Galvis,Austin Hays,0.0,Austin Hays,0.0,Freddy Galvis,7.0,Freddy Galvis,7.0,Freddy Galvis,7.0
+3,Cedric Mullins,Cedric Mullins,Jacob Stallings,Jacob Stallings,Jacob Stallings,Cedric Mullins,7.0,Cedric Mullins,7.0,Jacob Stallings,4.0,Jacob Stallings,4.0,Jacob Stallings,4.0
+4,Dinelson Lamet,Dinelson Lamet,Jake Cronenworth,Jake Cronenworth,Jake Cronenworth,Dinelson Lamet,2.1,Dinelson Lamet,2.1,Jake Cronenworth,3.0,Jake Cronenworth,3.0,Jake Cronenworth,3.0
+5,Eric Hosmer,Eric Hosmer,Jorge Lopez,Jorge Lopez,Jorge Lopez,Eric Hosmer,0.0,Eric Hosmer,0.0,Jorge Lopez,12.450000000000003,Jorge Lopez,12.450000000000003,Jorge Lopez,12.450000000000003
+6,Freddy Galvis,Freddy Galvis,Justin Dunn,Justin Dunn,Jurickson Profar,Freddy Galvis,7.0,Freddy Galvis,7.0,Justin Dunn,17.275000000000002,Justin Dunn,17.275000000000002,Jurickson Profar,4.0
+7,Jacob Stallings,Jacob Stallings,Manny Machado,Manny Machado,Justin Dunn,Jacob Stallings,4.0,Jacob Stallings,4.0,Manny Machado,2.0,Manny Machado,2.0,Justin Dunn,17.275000000000002
+8,Justin Dunn,Justin Dunn,Mitch Haniger,Mitch Haniger,Manny Machado,Justin Dunn,17.275000000000002,Justin Dunn,17.275000000000002,Mitch Haniger,4.0,Mitch Haniger,4.0,Manny Machado,2.0
+9,Manny Machado,Manny Machado,Trent Grisham,Trent Grisham,Mitch Haniger,Manny Machado,2.0,Manny Machado,2.0,Trent Grisham,8.0,Trent Grisham,8.0,Mitch Haniger,4.0
+10,Mitch Haniger,Mitch Haniger,Wil Myers,Wil Myers,Trent Grisham,Mitch Haniger,4.0,Mitch Haniger,4.0,Wil Myers,5.0,Wil Myers,5.0,Trent Grisham,8.0
+11,85.92999999999998,85.92999999999998,96.43,96.43,94.67,,52.375,,52.375,,62.72500000000001,,62.72500000000001,,61.72500000000001

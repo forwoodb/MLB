@@ -2,18 +2,23 @@ from pulp import *
 import pandas as pd
 import csv
 
-day = '07'
-month = '05'
+day = '24'
+month = '04'
 year = '2021'
 
 date = month + '-' + day + '-21'
-slate = '14'
+slate = '6'
 
 # Spelling Discrepencies
 name_spelling = pd.read_csv('./Spelling/name_spelling.csv')
+
+# Projections
 projections = pd.read_csv('./Data/' + date + '/' + slate + '/projections.csv')
 projections_a = pd.read_csv('./Data/' + date + '/' + slate + '/projections_a.csv')
 projections_a_b = pd.read_csv('./Data/' + date + '/' + slate + '/projections_a_b.csv')
+
+#  All Player Results
+results_all_players = pd.read_csv('./Data/' + date + '/' + slate + '/results_all_players.csv')
 
 # import csv data
 csv_dk = pd.read_csv('./Data/' + date + '/' + slate + '/DKSalaries.csv')
@@ -24,7 +29,7 @@ df_dk = pd.DataFrame(csv_dk)
 df_lineups = pd.DataFrame(csv_starting_lineups)
 df_name_spelling = pd.DataFrame(name_spelling)
 
-# Projections
+# Projections DFs
 df_projections = pd.DataFrame(projections)
 df_projections = df_projections[['Name','pj_vO']]
 
@@ -33,6 +38,10 @@ df_projections_a = df_projections_a[['Name','pj_vO']]
 
 df_projections_a_b = pd.DataFrame(projections_a_b)
 df_projections_a_b = df_projections_a_b[['Name','pj_vO']]
+
+# All Player Results DFs
+df_results_all_players = pd.DataFrame(results_all_players)
+df_results_all_players = df_results_all_players[['Name','Total']]
 
 #re-organize data
 new = df_dk['Roster Position'].str.split('/', n=1, expand=True)
@@ -211,157 +220,163 @@ def optimize(pool, points, new_list):
 
 #### Strategies ####
 
-# APPGa
-points = list(availables['AvgPointsPerGame'])
-new_list = [date, 'APPGa']
+# Best Lineup of Slate
+points = list(results_all_players['Total'])
+new_list = [date, 'Top']
 optimize(availables, points, new_list)
+# optimize(availables, points, None)
 
-# APPG
-points = list(projections['AvgPointsPerGame'])
-new_list = [date, 'APPG']
-optimize(projections, points, new_list)
-
-# pj_vO
-points = list(projections['pj_vO'])
-new_list = [date, 'pj_vO']
-optimize(projections, points, new_list)
-
-# pj_vOa
-points = list(projections_a['pj_vO'])
-new_list = [date, 'pj_vOa']
-optimize(projections_a, points, new_list)
-
-# pj_vOab
-points = list(projections_a_b['pj_vO'])
-new_list = [date, 'pj_vOab']
-optimize(projections_a_b, points, new_list)
-
-# APPGa 1-6
-availables = availables[availables[' batting order'] != '9']
-availables = availables[availables[' batting order'] != '8']
-availables = availables[availables[' batting order'] != '7']
-points = list(availables['AvgPointsPerGame'])
-new_list = [date, 'APPGa_1-6']
-optimize(availables, points, new_list)
-
-# APPG 1-6
-projections = projections[projections[' batting order'] != '9']
-projections = projections[projections[' batting order'] != '8']
-projections = projections[projections[' batting order'] != '7']
-points = list(projections['AvgPointsPerGame'])
-new_list = [date, 'APPG_1-6']
-optimize(projections, points, new_list)
-
-# pj_vO 1-6
-projections = projections[projections[' batting order'] != '9']
-projections = projections[projections[' batting order'] != '8']
-projections = projections[projections[' batting order'] != '7']
-points = list(projections['pj_vO'])
-new_list = [date, 'pj_vO_1-6']
-optimize(projections, points, new_list)
-
-# pj_vOa 1-6
-projections_a = projections_a[projections_a[' batting order'] != '9']
-projections_a = projections_a[projections_a[' batting order'] != '8']
-projections_a = projections_a[projections_a[' batting order'] != '7']
-points = list(projections_a['pj_vO'])
-new_list = [date, 'pj_vOa_1-6']
-optimize(projections_a, points, new_list)
-
-# pj_vOab 1-6
-projections_a_b = projections_a_b[projections_a_b[' batting order'] != '9']
-projections_a_b = projections_a_b[projections_a_b[' batting order'] != '8']
-projections_a_b = projections_a_b[projections_a_b[' batting order'] != '7']
-points = list(projections_a_b['pj_vO'])
-new_list = [date, 'pj_vOab_1-6']
-optimize(projections_a_b, points, new_list)
-
-# APPGa 1-5
-availables = availables[availables[' batting order'] != '6']
-points = list(availables['AvgPointsPerGame'])
-new_list = [date, 'APPGa_1-5']
-optimize(availables, points, new_list)
-
-# APPG 1-5
-projections = projections[projections[' batting order'] != '6']
-points = list(projections['AvgPointsPerGame'])
-new_list = [date, 'APPG_1-5']
-optimize(projections, points, new_list)
-
-# pj_vO 1-5
-projections = projections[projections[' batting order'] != '6']
-points = list(projections['pj_vO'])
-new_list = [date, 'pj_vO_1-5']
-optimize(projections, points, new_list)
-
-# pj_vOa 1-5
-projections_a = projections_a[projections_a[' batting order'] != '6']
-points = list(projections_a['pj_vO'])
-new_list = [date, 'pj_vOa_1-5']
-optimize(projections_a, points, new_list)
-
-# pj_vOab 1-5
-projections_a_b = projections_a_b[projections_a_b[' batting order'] != '6']
-points = list(projections_a_b['pj_vO'])
-new_list = [date, 'pj_vOab_1-5']
-optimize(projections_a_b, points, new_list)
-
-# APPGa 1-4
-availables = availables[availables[' batting order'] != '5']
-points = list(availables['AvgPointsPerGame'])
-new_list = [date, 'APPGa_1-4']
-optimize(availables, points, new_list)
-
-# APPG 1-4
-projections = projections[projections[' batting order'] != '5']
-points = list(projections['AvgPointsPerGame'])
-new_list = [date, 'APPG_1-4']
-optimize(projections, points, new_list)
-
-# pj_vO 1-4
-projections = projections[projections[' batting order'] != '5']
-points = list(projections['pj_vO'])
-new_list = [date, 'pj_vO_1-4']
-optimize(projections, points, new_list)
-
-# pj_vOa 1-4
-projections_a = projections_a[projections_a[' batting order'] != '5']
-points = list(projections_a['pj_vO'])
-new_list = [date, 'pj_vOa_1-4']
-optimize(projections_a, points, new_list)
-
-# pj_vOab 1-4
-projections_a_b = projections_a_b[projections_a_b[' batting order'] != '5']
-points = list(projections_a_b['pj_vO'])
-new_list = [date, 'pj_vOab_1-4']
-optimize(projections_a_b, points, new_list)
-
-# APPGa 1-3
-availables = availables[availables[' batting order'] != '4']
-points = list(availables['AvgPointsPerGame'])
-new_list = [date, 'APPGa_1-3']
-optimize(availables, points, new_list)
-
-# APPG 1-3
-projections = projections[projections[' batting order'] != '4']
-points = list(projections['AvgPointsPerGame'])
-new_list = [date, 'APPG_1-3']
-optimize(projections, points, new_list)
-
-# pj_vO 1-3
-projections = projections[projections[' batting order'] != '4']
-points = list(projections['pj_vO'])
-new_list = [date, 'pj_vO_1-3']
-optimize(projections, points, new_list)
-
-# pj_vOa 1-3
-projections_a = projections_a[projections_a[' batting order'] != '4']
-points = list(projections_a['pj_vO'])
-new_list = [date, 'pj_vOa_1-3']
-optimize(projections_a, points, new_list)
-
-# pj_vOab 1-3
-projections_a_b = projections_a_b[projections_a_b[' batting order'] != '4']
-points = list(projections_a_b['pj_vO'])
-new_list = [date, 'pj_vOab_1-3']
-optimize(projections_a_b, points, new_list)
+# # APPGa
+# points = list(availables['AvgPointsPerGame'])
+# new_list = [date, 'APPGa']
+# optimize(availables, points, new_list)
+#
+# # APPG
+# points = list(projections['AvgPointsPerGame'])
+# new_list = [date, 'APPG']
+# optimize(projections, points, new_list)
+#
+# # pj_vO
+# points = list(projections['pj_vO'])
+# new_list = [date, 'pj_vO']
+# optimize(projections, points, new_list)
+#
+# # pj_vOa
+# points = list(projections_a['pj_vO'])
+# new_list = [date, 'pj_vOa']
+# optimize(projections_a, points, new_list)
+#
+# # pj_vOab
+# points = list(projections_a_b['pj_vO'])
+# new_list = [date, 'pj_vOab']
+# optimize(projections_a_b, points, new_list)
+#
+# # APPGa 1-6
+# availables = availables[availables[' batting order'] != '9']
+# availables = availables[availables[' batting order'] != '8']
+# availables = availables[availables[' batting order'] != '7']
+# points = list(availables['AvgPointsPerGame'])
+# new_list = [date, 'APPGa_1-6']
+# optimize(availables, points, new_list)
+#
+# # APPG 1-6
+# projections = projections[projections[' batting order'] != '9']
+# projections = projections[projections[' batting order'] != '8']
+# projections = projections[projections[' batting order'] != '7']
+# points = list(projections['AvgPointsPerGame'])
+# new_list = [date, 'APPG_1-6']
+# optimize(projections, points, new_list)
+#
+# # pj_vO 1-6
+# projections = projections[projections[' batting order'] != '9']
+# projections = projections[projections[' batting order'] != '8']
+# projections = projections[projections[' batting order'] != '7']
+# points = list(projections['pj_vO'])
+# new_list = [date, 'pj_vO_1-6']
+# optimize(projections, points, new_list)
+#
+# # pj_vOa 1-6
+# projections_a = projections_a[projections_a[' batting order'] != '9']
+# projections_a = projections_a[projections_a[' batting order'] != '8']
+# projections_a = projections_a[projections_a[' batting order'] != '7']
+# points = list(projections_a['pj_vO'])
+# new_list = [date, 'pj_vOa_1-6']
+# optimize(projections_a, points, new_list)
+#
+# # pj_vOab 1-6
+# projections_a_b = projections_a_b[projections_a_b[' batting order'] != '9']
+# projections_a_b = projections_a_b[projections_a_b[' batting order'] != '8']
+# projections_a_b = projections_a_b[projections_a_b[' batting order'] != '7']
+# points = list(projections_a_b['pj_vO'])
+# new_list = [date, 'pj_vOab_1-6']
+# optimize(projections_a_b, points, new_list)
+#
+# # APPGa 1-5
+# availables = availables[availables[' batting order'] != '6']
+# points = list(availables['AvgPointsPerGame'])
+# new_list = [date, 'APPGa_1-5']
+# optimize(availables, points, new_list)
+#
+# # APPG 1-5
+# projections = projections[projections[' batting order'] != '6']
+# points = list(projections['AvgPointsPerGame'])
+# new_list = [date, 'APPG_1-5']
+# optimize(projections, points, new_list)
+#
+# # pj_vO 1-5
+# projections = projections[projections[' batting order'] != '6']
+# points = list(projections['pj_vO'])
+# new_list = [date, 'pj_vO_1-5']
+# optimize(projections, points, new_list)
+#
+# # pj_vOa 1-5
+# projections_a = projections_a[projections_a[' batting order'] != '6']
+# points = list(projections_a['pj_vO'])
+# new_list = [date, 'pj_vOa_1-5']
+# optimize(projections_a, points, new_list)
+#
+# # pj_vOab 1-5
+# projections_a_b = projections_a_b[projections_a_b[' batting order'] != '6']
+# points = list(projections_a_b['pj_vO'])
+# new_list = [date, 'pj_vOab_1-5']
+# optimize(projections_a_b, points, new_list)
+#
+# # APPGa 1-4
+# availables = availables[availables[' batting order'] != '5']
+# points = list(availables['AvgPointsPerGame'])
+# new_list = [date, 'APPGa_1-4']
+# optimize(availables, points, new_list)
+#
+# # APPG 1-4
+# projections = projections[projections[' batting order'] != '5']
+# points = list(projections['AvgPointsPerGame'])
+# new_list = [date, 'APPG_1-4']
+# optimize(projections, points, new_list)
+#
+# # pj_vO 1-4
+# projections = projections[projections[' batting order'] != '5']
+# points = list(projections['pj_vO'])
+# new_list = [date, 'pj_vO_1-4']
+# optimize(projections, points, new_list)
+#
+# # pj_vOa 1-4
+# projections_a = projections_a[projections_a[' batting order'] != '5']
+# points = list(projections_a['pj_vO'])
+# new_list = [date, 'pj_vOa_1-4']
+# optimize(projections_a, points, new_list)
+#
+# # pj_vOab 1-4
+# projections_a_b = projections_a_b[projections_a_b[' batting order'] != '5']
+# points = list(projections_a_b['pj_vO'])
+# new_list = [date, 'pj_vOab_1-4']
+# optimize(projections_a_b, points, new_list)
+#
+# # APPGa 1-3
+# availables = availables[availables[' batting order'] != '4']
+# points = list(availables['AvgPointsPerGame'])
+# new_list = [date, 'APPGa_1-3']
+# optimize(availables, points, new_list)
+#
+# # APPG 1-3
+# projections = projections[projections[' batting order'] != '4']
+# points = list(projections['AvgPointsPerGame'])
+# new_list = [date, 'APPG_1-3']
+# optimize(projections, points, new_list)
+#
+# # pj_vO 1-3
+# projections = projections[projections[' batting order'] != '4']
+# points = list(projections['pj_vO'])
+# new_list = [date, 'pj_vO_1-3']
+# optimize(projections, points, new_list)
+#
+# # pj_vOa 1-3
+# projections_a = projections_a[projections_a[' batting order'] != '4']
+# points = list(projections_a['pj_vO'])
+# new_list = [date, 'pj_vOa_1-3']
+# optimize(projections_a, points, new_list)
+#
+# # pj_vOab 1-3
+# projections_a_b = projections_a_b[projections_a_b[' batting order'] != '4']
+# points = list(projections_a_b['pj_vO'])
+# new_list = [date, 'pj_vOab_1-3']
+# optimize(projections_a_b, points, new_list)

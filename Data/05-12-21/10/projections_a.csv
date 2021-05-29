@@ -77,15 +77,15 @@
 75,TOR,Lourdes Gurriel Jr.,6,8.3
 76,TOR,Cavan Biggio,7,9.19
 77,TOR,Danny Jansen,8,5.65
-78,ATL,Ronald Acuna Jr.,1,11.87
-79,ATL,Freddie Freeman,2,8.45
-80,ATL,Marcell Ozuna,3,6.31
-81,ATL,Ozzie Albies,4,7.82
-82,ATL,Austin Riley,5,6.1
-83,ATL,Dansby Swanson,6,5.77
-84,ATL,William Contreras,7,6.85
-85,ATL,Cristian Pache,8,3.0
-86,LAD,Will Smith,5,7.37
+78,ATL,Ronald Acuna Jr.,1,10.69
+79,ATL,Freddie Freeman,2,7.07
+80,ATL,Marcell Ozuna,3,5.63
+81,ATL,Ozzie Albies,4,7.16
+82,ATL,Austin Riley,5,5.55
+83,ATL,Dansby Swanson,6,5.43
+84,ATL,William Contreras,7,6.09
+85,ATL,Cristian Pache,8,2.8
+86,LAD,Will Smith,5,6.66
 87,STL,Tommy Edman,1,4.35
 88,STL,Dylan Carlson,2,3.96
 89,STL,Paul Goldschmidt,3,3.87
@@ -177,13 +177,14 @@
 4,TB,Collin McHugh,SP,3.27
 5,KC,Danny Duffy,SP,26.52
 6,DET,Casey Mize,SP,10.31
-7,ATL,Max Fried,SP,5.6
-8,STL,John Gant,SP,14.86
-9,MIL,Brandon Woodruff,SP,22.72
-10,MIN,J.A. Happ,SP,14.2
-11,CWS,Dallas Keuchel,SP,8.63
-12,LAA,Andrew Heaney,SP,14.81
-13,HOU,Jose Urquidy,SP,13.63
-14,ARI,Matt Peacock,SP,3.04
-15,SEA,Justin Dunn,SP,11.76
-16,LAD,Julio Urias,SP,21.98
+7,TOR,Hyun Jin Ryu,SP,15.99
+8,ATL,Max Fried,SP,5.6
+9,STL,John Gant,SP,14.86
+10,MIL,Brandon Woodruff,SP,22.72
+11,MIN,J.A. Happ,SP,14.2
+12,CWS,Dallas Keuchel,SP,8.63
+13,LAA,Andrew Heaney,SP,14.81
+14,HOU,Jose Urquidy,SP,13.63
+15,ARI,Matt Peacock,SP,3.04
+16,SEA,Justin Dunn,SP,11.76
+17,LAD,Julio Urias,SP,21.98
