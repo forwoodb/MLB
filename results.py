@@ -1,12 +1,13 @@
 # check out the collections library
 import pandas as pd
+from contest import Contest
 
-day = '24'
-month = '04'
-year = '2021'
+day = Contest.day
+month = Contest.month
+year = Contest.year
 
-date = month + '-' + day + '-21'
-slate = '6'
+date = Contest.date
+slate = Contest.slate
 
 # Spelling Discrepencies
 name_spelling = pd.read_csv('./Spelling/name_spelling.csv')

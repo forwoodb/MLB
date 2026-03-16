@@ -113,5 +113,5 @@ all_games=pd.DataFrame()
 for yr in YEARS:
     for wk in WEEKS:
         soup=utils.soup(BASE_URL.replace("WEEK", wk).replace("YEAR",yr))
-        all_games=pd.concat([all_games,pd.read_csv(io.STRINGIO(soup.find('pre').text),sep=';')])
+        all_games=pd.concat([all_games,pd.read_csv(io.StringIO(soup.find('pre').text),sep=';')])
 all_games

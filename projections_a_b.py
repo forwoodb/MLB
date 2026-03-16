@@ -1,49 +1,38 @@
 import pandas as pd
-import numpy as np
-import re
 
-day = '24'
-month = '04'
-year = '2021'
+from contest import Contest
+from slate import Slate
+from lineups import Lineups
+from spelling import Spelling
+from baseball_reference import BaseballReference
 
-date = month + '-' + day + '-21'
-slate = '6'
+day = Contest.day
+month = Contest.month
+year = Contest.year
 
-# Spelling Discrepencies
-csv_name_spelling = pd.read_csv('./Spelling/name_spelling.csv')
-csv_team_abbr = pd.read_csv('./Spelling/team_abb.csv')
+date = Contest.date
+slate = Contest.slate
 
-# Import data.
-csv_dk = pd.read_csv('./Data/' + date + '/' + slate + '/DKSalaries.csv')
-csv_starting_lineups = pd.read_csv('./Data/' + date + '/Lineups_' + year + '_' + month + '_' + day + '.csv')
-# Baseball Reference
-# csv_b_stats = pd.read_csv('./Data/' + date + '/br_b_stats.csv')
-csv_p_stats = pd.read_csv('./Data/' + date + '/br_p_stats.csv')
-csv_t_stats = pd.read_csv('./Data/' + date + '/br_t_stats.csv')
 # FanGraphs
 csv_b_stats = pd.read_csv('./Data/' + date + '/fgbatters.csv')
 # csv_p_stats = pd.read_csv('./Data/' + date + '/fgpitchers.csv')
 # csv_t_stats = pd.read_csv('./Data/' + date + '/fgteamb.csv')
 
+##########################
 # Park Factor
 csv_bp_stats = pd.read_csv('./DKMLB Park Factor - Average.csv')
+##########################
+
+df_dk = Slate.df_dk
+df_lineups = Lineups.df_lineups
+df_name_spelling = Spelling.df_name_spelling
+df_team_abbr = Spelling.df_team_abbr
+df_p_stats = BaseballReference.df_p_stats
+df_t_stats = BaseballReference.df_t_stats
 
 # Convert to dataframes.
-df_dk = pd.DataFrame(csv_dk)
 df_b_stats = pd.DataFrame(csv_b_stats)
-df_p_stats = pd.DataFrame(csv_p_stats)
-df_t_stats = pd.DataFrame(csv_t_stats)
-df_lineups = pd.DataFrame(csv_starting_lineups)
-df_name_spelling = pd.DataFrame(csv_name_spelling)
-df_team_abbr = pd.DataFrame(csv_team_abbr)
 df_bp_stats = pd.DataFrame(csv_bp_stats)
-
-# Clean up lineup data.
-df_lineups = df_lineups.rename(columns={' player name': 'Name'})
-df_lineups = df_lineups.rename(columns={' batting order': 'b_o'})
-df_lineups = df_lineups.rename(columns={'team code': 'team'})
-df_lineups = df_lineups.replace(list(df_name_spelling["BaseballMonster"]), list(df_name_spelling["DraftKings"]))
-df_lineups = df_lineups.replace(list(df_team_abbr["BaseballMonster"]), list(df_team_abbr["DraftKings"]))
 
 def bottom_rows(df):
     df.drop(df.tail(1).index,inplace=True)
@@ -61,17 +50,11 @@ def batters(df):
 
     bottom_rows(df_batters)
 
-    df = df[['Name','Game Info','TeamAbbrev','AvgPointsPerGame']]
-    df = df.rename(columns={'TeamAbbrev': 'TmAbb','AvgPointsPerGame': 'APPG'})
+    # df = df[['Name','Game Info','TeamAbbrev','AvgPointsPerGame']]
     df_lineups_bat = df_lineups_bat[['team','Name','b_o']]
     df_batters = df_batters[['Name','G','H','2B','3B','HR','BB','R','RBI','HBP','SB']]
 
-    df_batters = df_batters.replace(list(df_team_abbr["BaseballReference"]), list(df_team_abbr["DraftKings"]))
-    df_batters = df_batters.replace(list(df_name_spelling["BaseballReference"]), list(df_name_spelling["DraftKings"]))
     df_batters = df_batters.replace(list(df_name_spelling["FanGraphs"]), list(df_name_spelling["DraftKings"]))
-
-    # df_vP = df_vP.replace(list(df_team_abbr["BaseballReference"]), list(df_team_abbr["DraftKings"]))
-    # df_vP = df_vP.replace(list(df_name_spelling["BaseballReference"]), list(df_name_spelling["DraftKings"]))
 
     df = pd.merge(df_lineups_bat, df, on='Name', how='inner')
     df = pd.merge(df, df_batters, on='Name', how='inner')
@@ -131,23 +114,7 @@ def batters(df):
     bb_fac = bb_ip/lg_bb_ip
     df_vP.insert(9, 'bb_fac', round(bb_fac, 2))
 
-    #Starting Pitcher Stats
-    game_info = df['Game Info'].str.split('@', n=1, expand=True)
-    df['Away'] = game_info[0]
-    df['Home'] = game_info[1]
-
-    Home = df['Home'].str.split(' ', n=1, expand=True)
-    df['Home'] = Home[0]
-    df.drop(columns=['Game Info'], inplace=True)
-
-    df['Opp'] = None
-
-    for i in df.index:
-        if df['TmAbb'][i] == df['Away'][i]:
-            df['Opp'][i] = df['Home'][i]
-        else:
-            df['Opp'][i] = df['Away'][i]
-
+    # Starting Pitcher Stats
     starting_pitchers = {}
     for pos in df_lineups_bat['b_o'].unique():
         if pos == 'SP':
@@ -160,7 +127,6 @@ def batters(df):
         for j in starting_pitchers:
             if df['Opp'][i] == j:
                 df['vSP'][i] = starting_pitchers[j]
-
 
     df_vP = df_vP.rename(columns={'Name': 'vSP'})
     # df.drop(columns=['Away','Home'], inplace=True)
@@ -201,12 +167,7 @@ def batters(df):
     df['pj_vO'] = round(proj_pts_vP, 2)
     df = df[df['pj_vO'] > 0]
 
-    # # # # pd.set_option('display.max_columns', None)
-    # pd.set_option('display.max_rows', None)
-    # print(df)
-    #
     return df
-
 
 def pitchers(df):
     df = df_dk
@@ -215,7 +176,7 @@ def pitchers(df):
     df_vBP = df_bp_stats
     df_lineups_pitchers = df_lineups
 
-    df = df[['Name','Game Info','TeamAbbrev','AvgPointsPerGame']]
+    # df = df[['Name','Game Info','TeamAbbrev','AvgPointsPerGame']]
     df = df.rename(columns={'TeamAbbrev': 'TmAbb','AvgPointsPerGame': 'APPG'})
     df_lineups_pitchers = df_lineups_pitchers[['team','Name','b_o']]
     # BR
@@ -259,7 +220,6 @@ def pitchers(df):
     proj_pts = (hits_allowed + innings + strike_outs + wins + comp_gm + earned_runs + walks + HBP + shut_outs)
     df['pj_pts'] = round(proj_pts, 2)
 
-
     # # Team Factors for Pitching
     df_vT.drop(df_vT.tail(2).index,inplace=True)
     name = df_p_stats['Name'].str.split('*', n=1, expand=True)
@@ -298,22 +258,7 @@ def pitchers(df):
     bb_fac = bb_g/lg_bb_g
     df_vT.insert(9, 'bb_fac', round(bb_fac, 2))
 
-    #Starting Pitcher Stats
-    game_info = df['Game Info'].str.split('@', n=1, expand=True)
-    df['Away'] = game_info[0]
-    df['Home'] = game_info[1]
-    #
-    Home = df['Home'].str.split(' ', n=1, expand=True)
-    df['Home'] = Home[0]
-    df.drop(columns=['Game Info'], inplace=True)
-
-    df['Opp'] = None
-
-    for i in df.index:
-        if df['TmAbb'][i] == df['Away'][i]:
-            df['Opp'][i] = df['Home'][i]
-        else:
-            df['Opp'][i] = df['Away'][i]
+    # Starting Pitcher Stats
 
     # BR
     df_vT = df_vT.rename(columns={'Tm': 'Opp'})
