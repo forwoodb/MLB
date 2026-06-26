@@ -11,7 +11,7 @@ year = Contest.year
 date = Contest.date
 slate = Contest.slate
 
-# Spelling Discrepencies
+# Spelling Discrepancies
 name_spelling = pd.read_csv('./Spelling/name_spelling.csv')
 
 # Projections
@@ -194,9 +194,9 @@ def optimize(pool, points, new_list):
 		print(div)
 		print("Constraints:")
 		for constraint in constraints:
-		    constraint_pretty = " + ".join(re.findall("[0-9\.]*\*1.0", constraint))
-		    if constraint_pretty != "":
-		        print("{} = {}".format(constraint_pretty, eval(constraint_pretty)))
+			constraint_pretty = " + ".join(re.findall("[0-9\.]*\*1.0", constraint))
+			if constraint_pretty != "":
+				print("{} = {}".format(constraint_pretty, eval(constraint_pretty)))
 		print(div)
 		print("Score:")
 		score_pretty = " + ".join(re.findall("[0-9\.]+\*1.0", score))

@@ -1,5 +1,6 @@
 # check out the collections library
 import pandas as pd
+from contest import Contest
 
 day = Contest.day
 month = Contest.month
